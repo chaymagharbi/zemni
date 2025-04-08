@@ -1,44 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
-import { Location } from '@angular/common'; // Importation de Location
-import { CarteService } from '../services/carte.service'; 
+import { FormsModule } from '@angular/forms';
 import { Carte } from '../models/carte.interface';
-// Définir un type pour l'état de navigation
+import { CarteService } from '../services/carte.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modifier',
   standalone: true,
-  imports: [FormsModule], // Inclure FormsModule pour la gestion des ngModel
+  imports: [CommonModule, FormsModule],
   templateUrl: './modifier.component.html',
   styleUrls: ['./modifier.component.scss']
 })
-export class ModifierComponent implements OnInit {
-  carte: Carte = {
-    id: '',
-    titre: '',
-    description: '',
-    adresse: '',
-    imageUrl: ''
-  };
+export class ModifierComponent {
+  carteId: string = '';
+  carte: Carte | null = null;
+  errorMessage: string = '';
 
-  constructor(
-    private router: Router,
-    private location: Location,
-    private carteService: CarteService 
-  ) {}
+  constructor(private router: Router, private carteService: CarteService) {}
 
-  ngOnInit(): void {
-    const navigation = this.location.getState() as { carte: Carte };
-    if (navigation && navigation.carte) {
-      this.carte = navigation.carte;
+  onSearch() {
+    if (!this.carteId.trim()) {
+      this.errorMessage = "Veuillez entrer un ID.";
+      this.carte = null;
+      return;
+    }
+
+    const foundCarte = this.carteService.getCarteById(this.carteId.trim());
+
+    if (!foundCarte) {
+      this.errorMessage = "Aucune carte trouvée avec cet ID.";
+      this.carte = null;
+    } else {
+      this.carte = { ...foundCarte }; // Cloner pour modification
+      this.errorMessage = '';
     }
   }
 
-  confirm() {
-    this.carteService.updateCarte(this.carte);
-    console.log('Carte modifiée', this.carte);
-    this.router.navigate(['/']);
+  onConfirmModifier() {
+    if (this.carte) {
+      this.carteService.updateCarte(this.carte);
+      console.log("Carte modifiée :", this.carte);
+      this.router.navigate(['/']);
+    }
   }
 
   onCancel() {
