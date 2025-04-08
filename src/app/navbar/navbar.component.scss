@@ -1,0 +1,53 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 50px;
+    background-color: white;
+
+    .navbar-logo img {
+        height: 50px; // Ajuste la taille du logo si nécessaire
+    }
+
+    .navbar-menu {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+
+    .navbar-start {
+        display: flex;
+        justify-content: center; // Centre les éléments
+        flex-grow: 1; // Permet de prendre tout l'espace disponible
+    }
+
+    .navbar-end {
+        display: flex;
+        justify-content: flex-end; 
+    }
+
+    .navbar-item {
+        padding: 0 10px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    .navbar-item:hover {
+        color: orange; 
+    }
+    .navbar-logo img {
+        border-radius: 30px; // Ajuste la valeur selon l'arrondi désiré
+    }
+    .navbar-end a {
+        font-size: 24px; // Taille des icônes
+        margin: 0 10px;
+        color: #333; // Couleur des icônes
+        transition: color 0.3s;
+      }
+      
+      .navbar-end a:hover {
+        color: orange; // Change de couleur au survol (bleu LinkedIn)
+      }
+      
+}

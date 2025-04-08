@@ -1,0 +1,25 @@
+<div class="ajouter-container">
+    <h2>Ajouter un endroit</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="id">ID</label>
+      <input type="text" id="id" [(ngModel)]="carte.id" name="id" required />
+  
+      <label for="titre">Nom de l'endroit</label>
+      <input type="text" id="titre" [(ngModel)]="carte.titre" name="titre" required />
+  
+      <label for="description">Description</label>
+      <input type="text" id="description" [(ngModel)]="carte.description" name="description" required />
+  
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" required />
+  
+      <label for="imageUrl">URL de l'image</label>
+      <input type="text" id="imageUrl" [(ngModel)]="carte.imageUrl" name="imageUrl" required />
+  
+      <div class="buttons">
+        <button type="submit">Confirmer</button>
+        <button type="button" (click)="onCancel()">Annuler</button>
+      </div>
+    </form>
+  </div>
+  

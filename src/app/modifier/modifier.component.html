@@ -1,0 +1,32 @@
+<form (ngSubmit)="confirm()">
+    <div>
+      <label for="id">ID Endroit</label>
+      <input type="text" id="id" [(ngModel)]="carte.id" name="id" required />
+    </div>
+  
+    <div>
+      <label for="titre">Nom Endroit</label>
+      <input type="text" id="titre" [(ngModel)]="carte.titre" name="titre" required />
+    </div>
+  
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" [(ngModel)]="carte.description" name="description" required></textarea>
+    </div>
+  
+    <div>
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" required />
+    </div>
+  
+    <div>
+      <label for="imageUrl">URL de l'image</label>
+      <input type="text" id="imageUrl" [(ngModel)]="carte.imageUrl" name="imageUrl" required />
+    </div>
+  
+    <div>
+      <button type="submit">Confirmer</button>
+      <button type="button" (click)="onCancel()">Annuler</button>
+    </div>
+  </form>
+  

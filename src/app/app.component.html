@@ -1,0 +1,46 @@
+<div class="app-container">
+  <!-- Contenu principal de la page -->
+  <main>
+    <app-navbar (adminModeChanged)="toggleAdminMode()"></app-navbar>
+    <app-imgpr [imageSrc]="imgData.imageSrc" [text]="imgData.text"></app-imgpr>
+
+    <!-- Boutons admin globaux -->
+    <div *ngIf="adminMode" class="admin-actions-global">
+      <button (click)="ajouter()" title="Ajouter">
+        <i class="fas fa-plus"></i> 
+      </button>
+      <button (click)="modifier()" title="Modifier">
+        <i class="fas fa-edit"></i> 
+      </button>
+      <button (click)="supprimer()" title="Supprimer">
+        <i class="fas fa-trash-alt"></i> 
+      </button>
+    </div>
+
+    <button (click)="toggleCategory()" class="switch-category-btn">
+      Restauration
+    </button>
+    
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div *ngIf="!isRestaurationActive">
+      <div class="patrimoine-container">
+        <a routerLink="/patrimoine1" routerLinkActive="active" class="arrow">1</a>
+        <a routerLink="/patrimoine2" routerLinkActive="active" class="arrow">2</a>
+        <a routerLink="/patrimoine3" routerLinkActive="active" class="arrow">3</a>
+      </div>
+    </div>
+
+    <!-- Section pour Restauration -->
+    <div *ngIf="isRestaurationActive">
+      <div class="restauration-container">
+        <a routerLink="/restoration1" routerLinkActive="active" class="arrow">1</a>
+        <a routerLink="/restoration2" routerLinkActive="active" class="arrow">2</a>
+        <a routerLink="/restoration3" routerLinkActive="active" class="arrow">3</a>
+      </div>
+    </div>
+  </div>
+</div>

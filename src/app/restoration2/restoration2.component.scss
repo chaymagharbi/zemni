@@ -1,0 +1,42 @@
+.carte-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .carte {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .carte:hover {
+    transform: scale(1.05);
+  }
+  
+  .carte img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .carte-content {
+    padding: 16px;
+    background-color: #fff;
+  }
+  
+  .carte-content h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .carte-content p {
+    color: #555;
+    font-size: 14px;
+  }
+  
