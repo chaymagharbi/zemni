@@ -1,32 +1,35 @@
-<form (ngSubmit)="confirm()">
-    <div>
-      <label for="id">ID Endroit</label>
-      <input type="text" id="id" [(ngModel)]="carte.id" name="id" required />
-    </div>
-  
-    <div>
-      <label for="titre">Nom Endroit</label>
-      <input type="text" id="titre" [(ngModel)]="carte.titre" name="titre" required />
-    </div>
-  
-    <div>
+<div class="modifier-endroit-container">
+  <div class="form-box">
+    <button class="close-btn">&times;</button>
+    <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
+
+    <h2>Modifier un endroit</h2>
+    <p class="subtext">Veuillez introduire des données valides!</p>
+
+    <form (ngSubmit)="confirm()">
+      <label for="id">ID du endroit</label>
+      <input id="id" type="text" placeholder="veuillez entrer un id unique" required />
+
+      <label for="nom">Nom de l'endroit</label>
+      <input id="nom" type="text" required />
+
       <label for="description">Description</label>
-      <textarea id="description" [(ngModel)]="carte.description" name="description" required></textarea>
-    </div>
-  
-    <div>
+      <input id="description" type="text" required />
+
       <label for="adresse">Adresse</label>
-      <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" required />
-    </div>
-  
-    <div>
+      <input id="adresse" type="text" placeholder="Rue, ville, etc." required />
+
       <label for="imageUrl">URL de l'image</label>
-      <input type="text" id="imageUrl" [(ngModel)]="carte.imageUrl" name="imageUrl" required />
-    </div>
-  
-    <div>
-      <button type="submit">Confirmer</button>
-      <button type="button" (click)="onCancel()">Annuler</button>
-    </div>
-  </form>
-  
+      <input id="imageUrl" type="text" placeholder="exemple: http://www.domain.com/image.jpg" required />
+
+      <div class="button-group">
+        <button type="submit" class="add-btn">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button type="button" class="cancel-btn" (click)="onCancel()">
+          <i class="fas fa-times-circle"></i> Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

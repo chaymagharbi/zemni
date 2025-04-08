@@ -2,17 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'; 
 import { Location } from '@angular/common'; // Importation de Location
-
+import { CarteService } from '../services/carte.service'; 
+import { Carte } from '../models/carte.interface';
 // Définir un type pour l'état de navigation
-interface NavigationState {
-  carte: {
-    id: string;
-    titre: string;
-    description: string;
-    adresse: string;
-    imageUrl: string;
-  };
-}
 
 @Component({
   selector: 'app-modifier',
@@ -22,7 +14,7 @@ interface NavigationState {
   styleUrls: ['./modifier.component.scss']
 })
 export class ModifierComponent implements OnInit {
-  carte = {
+  carte: Carte = {
     id: '',
     titre: '',
     description: '',
@@ -30,26 +22,26 @@ export class ModifierComponent implements OnInit {
     imageUrl: ''
   };
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    private carteService: CarteService 
+  ) {}
 
   ngOnInit(): void {
-    // Récupérer l'état de la navigation avec un type explicite
-    const navigation = this.location.getState() as NavigationState; // Utilisation du type NavigationState
+    const navigation = this.location.getState() as { carte: Carte };
     if (navigation && navigation.carte) {
-      this.carte = navigation.carte; // Charger les données existantes si modification
+      this.carte = navigation.carte;
     }
   }
 
-  // Fonction pour confirmer l'ajout ou la modification de la carte
   confirm() {
-    // Logique pour enregistrer la carte, peut-être en utilisant un service pour sauvegarder les données
-    console.log('Carte confirmée', this.carte);
-    this.router.navigate(['/']); // Rediriger après la confirmation
+    this.carteService.updateCarte(this.carte);
+    console.log('Carte modifiée', this.carte);
+    this.router.navigate(['/']);
   }
 
-  // Fonction pour annuler l'édition de la carte
   onCancel() {
-    // Par exemple, rediriger vers la page d'accueil ou la page précédente
-    this.router.navigate(['/']); 
+    this.router.navigate(['/']);
   }
 }

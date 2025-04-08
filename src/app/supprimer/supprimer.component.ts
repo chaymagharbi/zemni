@@ -23,6 +23,7 @@ export class SupprimerComponent implements OnInit {
   onSearch() {
     if (!this.carteId.trim()) {
       this.errorMessage = 'L\'ID est obligatoire.';
+      this.carte = null;
       return;
     }
 
@@ -39,7 +40,7 @@ export class SupprimerComponent implements OnInit {
     if (this.carte) {
       this.carteService.deleteCarte(this.carte.id);
       console.log('Carte supprimée :', this.carte);
-      this.router.navigate(['/']); // ou autre redirection
+      this.router.navigate(['/']); 
     }
   }
 

@@ -1,33 +1,47 @@
-<h1>Supprimer une carte</h1>
+<div class="supprimer-endroit-container">
+  <div class="form-box">
+    <button class="close-btn">&times;</button>
+    <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
 
-<!-- Moteur de recherche pour trouver la carte -->
-<form (ngSubmit)="onSearch()">
-  <label for="carteId">ID de la carte à supprimer</label>
-  <input type="text" id="carteId" [(ngModel)]="carteId" name="carteId" required />
-  <button type="submit">Rechercher</button>
-</form>
+    <!-- Moteur de recherche pour trouver la carte -->
+    <form (ngSubmit)="onSearch()">
+      <label for="carteId">ID de la carte à supprimer</label>
+      <input
+        type="text"
+        id="carteId"
+        [(ngModel)]="carteId"
+        name="carteId"
+        required
+      />
+      <button type="submit" class="search-btn">Rechercher</button>
+    </form>
 
-<!-- Affichage de la carte à supprimer si elle est trouvée -->
-<div *ngIf="carte; else noCarte">
-  <h2>Supprimer l'endroit</h2>
-  <form (ngSubmit)="onConfirmDelete()">
-    <label for="id">ID</label>
-    <input type="text" id="id" [value]="carte.id" disabled />
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-    <label for="titre">Nom de l'endroit</label>
-    <input type="text" id="titre" [value]="carte.titre" disabled />
+    <div *ngIf="carte">
+      <h2>Supprimer l'endroit</h2>
+      <form (ngSubmit)="onConfirmDelete()">
+        <label for="id">ID du endroit</label>
+        <input
+          type="text"
+          id="id"
+          [value]="carte.id"
+          placeholder="veuillez entrer un id unique"
+          disabled
+        />
 
-    <div class="buttons">
-      <button type="submit">Confirmer</button>
-      <button type="button" (click)="onCancel()">Annuler</button>
+        <label for="titre">Nom de l'endroit</label>
+        <input type="text" id="titre" [value]="carte.titre" disabled />
+
+        <div class="button-group">
+          <button type="submit" class="add-btn">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+          <button type="button" class="cancel-btn" (click)="onCancel()">
+            <i class="fas fa-times-circle"></i> Annuler
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
-
-<!-- Message affiché si la carte n'existe pas -->
-<ng-template #noCarte>
-  <p>Aucune carte trouvée. L'ID fourni ne correspond à aucune carte.</p>
-</ng-template>
-
-<!-- Message d'erreur si l'ID est vide ou la carte est introuvable -->
-<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
