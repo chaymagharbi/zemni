@@ -17,21 +17,21 @@ export class Restoration1Component {
       titre: 'Dar Jeld',
       description: 'Dar Jeld est un Palaris Historique construit en 1800, situé dans la médina de Tunis. IL est un exemple de l\'architecture tunisienne traditionnelle et ottomane.', 
       adresse: 'Dar El Jeld',
-      id:2.1,
+      id:'2.1',
     },
     {
       image: '/assets/Elali.jpg',
       titre: 'El Ali',
       description: 'El Ali est un restaurant traditionnel tunisien situé dans le coeur de la médina de Tunis. Il est célèbre pour son ambiance authentique et son décor inspiré des maisons traditionnelles tunisiennes.Il se distingue par spn service impeccable et son cadre historique.',
       adresse: 'EL ALI Resto & Café Culturel',
-      id:2.2,
+      id:'2.2',
     },
     {
       image: '/assets/patio.jpg',
       titre: 'Dar Zyne',
       description: 'Dar Zyne est une maison traditionnelle tunisienne située dans la médina de Tunis. Ce lieu historique au decor raffiné mélange harmonieusement l\'architecture ancienne avec des éléments modernes ',    
       adresse: 'Dar Zyne la Médina',
-      id:2.3,}
+      id:'2.3',}
 
     ];
 
