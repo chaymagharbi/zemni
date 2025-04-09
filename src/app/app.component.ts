@@ -23,19 +23,25 @@ export class AppComponent {
   adminMode = false;
   isRestaurationActive = false;
   isAdminPage = false;
+  isRecherchePage: boolean = false;
 
   constructor(private router: Router, private carteService: CarteService) {
     // Récupérer toutes les cartes au départ
     this.toutesCartes = this.carteService.getAllCartes();
-    this.cartesFiltres = [...this.toutesCartes];
   
     // Gérer la navigation et les pages d'administration
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         const url = event.urlAfterRedirects || event.url;
+        
+        // Détecter si c'est une page admin
         this.isAdminPage = ['/ajouter', '/modifier', '/supprimer'].includes(url);
-      });
+        
+        // Détecter si c'est la page de recherche
+        this.isRecherchePage = url.includes('/recherche');
+  });
+
   }
 
   // Fonction pour basculer entre le mode Admin
@@ -91,21 +97,12 @@ export class AppComponent {
     this.router.navigate(['/modifier'], { state: { carte: carte } });
   }
 
-  cartesFiltres: Carte[] = [];
   toutesCartes: Carte[] = [];
 
-  
-
-
   filtrerCartesGlobale(query: string) {
-    if (!query || query.trim() === '') {
-      this.cartesFiltres = [...this.toutesCartes];
-    } else {
-      this.cartesFiltres = this.toutesCartes.filter(carte =>
-        carte.titre.toLowerCase().includes(query.toLowerCase()) ||
-        carte.description.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-    console.log('Résultats de la recherche:', this.cartesFiltres);
+    // Naviguer vers la page de recherche avec le terme en paramètre
+    this.router.navigate(['/recherche'], { queryParams: { q: query } });
   }
+  
+  
 }

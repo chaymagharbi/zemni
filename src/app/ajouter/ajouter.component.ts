@@ -51,4 +51,40 @@ export class AjouterComponent {
   onCancel() {
     this.router.navigate(['/']);
   }
+  ajouterCarte() {
+    console.log("ajouterCarte appelée avec :", this.carte);
+    const carte = this.carte;
+  
+    const carteExistante = this.carteService.getCarteById(carte.id.trim());
+  
+    if (carteExistante) {
+      this.errorMessage = "L'ID existe déjà. Veuillez choisir un autre ID.";
+      this.successMessage = '';
+    } else {
+      this.carteService.addCarte(carte);
+      this.successMessage = "Carte ajoutée avec succès !";
+      this.errorMessage = '';
+  
+      // Rediriger vers la bonne page
+      if (carte.id.startsWith('1')) {
+        this.router.navigate(['/patrimoine3']);
+      } else if (carte.id.startsWith('2')) {
+        this.router.navigate(['/restoration3']);
+      } else {
+        alert("ID invalide : doit commencer par 1 (patrimoine) ou 2 (restauration).");
+      }
+  
+      // Reset du formulaire
+      this.carte = {
+        id: '',
+        titre: '',
+        description: '',
+        adresse: '',
+        imageUrl: ''
+      };
+    }
+  }
+  
+  
 }
+

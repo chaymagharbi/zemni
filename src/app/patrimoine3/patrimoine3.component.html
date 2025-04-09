@@ -1,6 +1,6 @@
 <div class="carte-container">
   <div *ngFor="let carte of cartes" class="carte">
-    <img [src]="carte.image" alt="Image de la carte" />
+    <img [src]="carte.imageUrl" alt="Image de la carte" />
     <div class="carte-content">
       <h3>{{ carte.titre }}</h3>
       <p>{{ carte.description }}</p>
@@ -9,6 +9,7 @@
         <a [href]="'https://www.google.com/maps?q=' + carte.adresse" target="_blank">
           {{ carte.adresse }}
         </a>
-      </p>    </div>
+      </p>    
+    </div>
   </div>
 </div>

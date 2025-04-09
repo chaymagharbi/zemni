@@ -10,14 +10,15 @@
     <h2>Ajouter un endroit</h2>
     <p class="subtext">Veuillez introduire des données valides!</p>
 
+    <!-- Formulaire d'ajout -->
     <form (ngSubmit)="onConfirmAjouter()">
-      <label for="id">ID du endroit</label>
+      <label for="id">ID de l'endroit</label>
       <input
         id="id"
         type="text"
         [(ngModel)]="carte.id"
         name="id"
-        placeholder="veuillez entrer un id unique"
+        placeholder="Veuillez entrer un id unique"
         required
       />
 
