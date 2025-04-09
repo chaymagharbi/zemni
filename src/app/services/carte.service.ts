@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Carte } from '../models/carte.interface';  // Assure-toi que le chemin est correct
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'  // Cela permet au service d'être injecté dans n'importe quel composant sans avoir à l'ajouter dans les imports du module
@@ -63,4 +64,24 @@ export class CarteService {
       this.cartes.splice(index, 1);
     }
   }
+  getAllCartes(): Carte[] {
+    return this.cartes;
+  }
+
+  getCartesPatrimoine(): Carte[] {
+    return this.cartes.filter(carte => carte.id.startsWith('1.'));
+  }
+
+  getCartesRestauration(): Carte[] {
+    return this.cartes.filter(carte => carte.id.startsWith('2.'));
+  }
+
+  filterCartes(searchTerm: string, cartes: Carte[]): Carte[] {
+    if (!searchTerm) return cartes;
+    return cartes.filter(carte =>
+      carte.titre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      carte.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+  
 }

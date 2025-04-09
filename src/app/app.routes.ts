@@ -18,5 +18,6 @@ export const appRoutes: Routes = [
   { path: 'patrimoine3', component: Patrimoine3Component },
   { path: 'restoration1', component: Restoration1Component },
   { path: 'restoration2', component: Restoration2Component },
-  { path: 'restoration3', component: Restoration3Component }
+  { path: 'restoration3', component: Restoration3Component },
+  {path: 'recherche',loadComponent: () => import('./recherche/recherche.component').then(c => c.RechercheComponent)}
 ];

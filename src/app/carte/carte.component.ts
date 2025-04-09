@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CarteService } from '../services/carte.service';
+import { Carte } from '../models/carte.interface';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 @Component({
   selector: 'app-carte',
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   standalone: true,
   templateUrl: './carte.component.html',
   styleUrls: ['./carte.component.scss']

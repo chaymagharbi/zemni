@@ -1,8 +1,17 @@
 <main>
-  <app-navbar *ngIf="!isAdminPage" (adminModeChanged)="toggleAdminMode()"></app-navbar>
+  <!-- Barre de navigation -->
+  <app-navbar *ngIf="!isAdminPage" 
+              (adminModeChanged)="toggleAdminMode()" 
+              (searchEvent)="filtrerCartesGlobale($event)">
+  </app-navbar>
+  
+  <!-- Image principale -->
+  <app-imgpr *ngIf="!isAdminPage" 
+             [imageSrc]="imgData.imageSrc" 
+             [text]="imgData.text">
+  </app-imgpr>
 
-  <app-imgpr *ngIf="!isAdminPage" [imageSrc]="imgData.imageSrc" [text]="imgData.text"></app-imgpr>
-
+  <!-- Actions Admin visibles uniquement si adminMode est activé et ce n'est pas une page admin -->
   <div *ngIf="adminMode && !isAdminPage" class="admin-actions-global">
     <button (click)="ajouter()" title="Ajouter">
       <i class="fas fa-plus"></i> 
@@ -15,13 +24,25 @@
     </button>
   </div>
 
+  <!-- Bouton de changement de catégorie -->
   <button *ngIf="!isAdminPage" (click)="toggleCategory()" class="switch-category-btn">
     Restauration
   </button>
-
+  <!-- Ajoutez cette section pour afficher les cartes filtrées -->
+  <div *ngIf="!isAdminPage" class="cartes-container">
+    <div *ngFor="let carte of cartesFiltres" class="carte">
+      <img [src]="carte.imageUrl" [alt]="carte.titre">
+      <h3>{{ carte.titre }}</h3>
+      <p>{{ carte.description }}</p>
+      <p class="adresse">{{ carte.adresse }}</p>
+      
+      <!-- Boutons admin si nécessaire --->
+    </div>
+  </div>
+  
+  <!-- Composant Router Outlet pour afficher le contenu dynamique -->
   <router-outlet></router-outlet>
 </main>
-
 <!-- ✅ Footer visible uniquement si ce n’est pas une page admin -->
 <div class="footer" *ngIf="!isAdminPage">
   <div *ngIf="!isRestaurationActive">

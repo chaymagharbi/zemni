@@ -8,6 +8,16 @@
         <a class="navbar-item">A propos</a>
         <a class="navbar-item">Histoire</a>
       </div>
+      <nav class="navbar">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          placeholder="Rechercher..."
+          class="search-input"
+        />
+      </nav>
+      
       <div class="navbar-end">
         <a href="https://www.facebook.com" target="_blank" class="navbar-item">
           <i class="fab fa-facebook"></i>
