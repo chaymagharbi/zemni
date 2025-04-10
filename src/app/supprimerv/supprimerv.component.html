@@ -1,0 +1,47 @@
+<div class="supprimer-pièce-container">
+    <div class="form-box">
+      <button class="close-btn">&times;</button>
+      <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
+  
+      <!-- Moteur de recherche pour trouver la carte -->
+      <form (ngSubmit)="onSearch()">
+        <label for="carteId">ID de la carte à supprimer</label>
+        <input
+          type="text"
+          id="carteId"
+          [(ngModel)]="carteId"
+          name="carteId"
+          required
+        />
+        <button type="submit" class="search-btn">Rechercher</button>
+      </form>
+  
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  
+      <div *ngIf="carte">
+        <h2>Supprimer la pièce</h2>
+        <form (ngSubmit)="onConfirmDelete()">
+          <label for="id">ID de la pièce</label>
+          <input
+            type="text"
+            id="id"
+            [value]="carte.id"
+            placeholder="veuillez entrer un id unique"
+            disabled
+          />
+  
+          <label for="titre">Nom de la pièce</label>
+          <input type="text" id="titre" [value]="carte.titre" disabled />
+  
+          <div class="button-group">
+            <button type="submit" class="add-btn">
+              <i class="fas fa-trash"></i> Supprimer
+            </button>
+            <button type="button" class="cancel-btn" (click)="onCancel()">
+              <i class="fas fa-times-circle"></i> Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
