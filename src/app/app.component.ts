@@ -106,3 +106,63 @@ export class AppComponent {
   
   
 }
+-------------------------------------------------
+  app.component.ts(fatma)
+  //
+  import { Component } from '@angular/core';
+import { CarteComponent } from './carte/carte.component'; // ⚠️ mets ici le bon chemin si différent
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [ CommonModule,RouterModule,NavbarComponent,CarteComponent],
+  template: `
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; padding: 16px;">
+    <app-carte
+      *ngFor="let card of cartes"
+      [image]="card.image"
+      [title]="card.title"
+      [subtitle]="card.subtitle"
+      [description]="card.description"
+      style="width: 250px;">
+    </app-carte>
+  </div>
+`,
+
+
+
+})
+export class AppComponent {
+  cartes = [
+    {
+      image: 'assets/dmak.jpg',
+      title: '<:<Dmak>:>',
+      subtitle: 'C’est un mot en tunisien qui signifie que c’est un bon plat',
+      description: '“« Dmak » désigne cette invitation gourmande à la dégustation de plats tunisiens où chaque bouchée est un concentré de convivialité et de traditions. On y retrouve aussi bien les briks croustillantes, farcies d’œuf, de thon ou de viande hachée, que les tajines sucrés‑salés au poulet et aux citrons confits, sans oublier le couscous généreusement garni de légumes de saison et de morceaux de mouton fondants. Le « Dmak » célèbre les épices typique une pointe de harissa  et l’or liquide qu’est l’huile d’olive.',
+    },
+    {
+      image: 'assets/kachech.jpg',
+      title: '<:<kachech>:>',
+      subtitle: 'Ce mot en tunisien signifie “Habillé traditionnellement”',
+      description: '“« Kachech » désigne bien plus qu’un simple vêtement : c’est le symbole vivant du raffinement et du patrimoine tunisien. Confectionné dans des étoffes précieuses — velours brodé, soie chatoyante ou coton finement tissé — il se pare de motifs traditionnels inspirés de l’architecture andalouse et des arabesques mauresques. Porté lors des grandes occasions (mariages, fêtes religieuses ou cérémonies familiales), le kachech se compose souvent d’une tunique longue, d’un gilet ouvert orné de fils. ',
+    },
+    {
+      image: 'assets/kayda.jpg',
+      title: '<:<kaayda al kif>:>',
+      subtitle: 'Un bon moment de kif sur fond de musique et de couleurs',
+      description: '“« Kaayda al kif » évoque l’art de savourer pleinement l’instant présent dans une ambiance à la fois festive et authentique. C’est l’expression qui décrit ces moments de partage et de bonne humeur, que ce soit autour d’un verre de thé à la menthe dans une terrasse ensoleillée, au son d’un oud et des rires entre amis, ou lors d’une soirée animée sous les guirlandes de lampions. Cette locution incarne l’esprit chaleureux de la Tunisie : convivialité, musique,traditions, couleurs et joie de vivre .',
+    },
+    {
+      image: 'assets/narjalekdima.jpg',
+      title: '<:<Narjalekdima>:>',
+      subtitle: 'Rêver, toujours rêver',
+      description: '“« Narjaalek dima » est bien plus qu’une simple expression ; c’est une promesse et un appel à revenir sans cesse explorer les mille visages de la Tunisie. De la blancheur éclatante des ruelles de Sidi Bou Saïd aux vestiges majestueux de Carthage, en passant par les dunes dorées du Sahara et les oasis paisibles de Tozeur, chaque recoin du pays invite à une découverte renouvelée. Les souks animés de Tunis, avec leurs épices parfumées et leurs étoffes colorées, côtoient les amphithéâtres antiques de Dougga, témoins d’un passé romain exceptionnel. ',
+    }
+  ];
+}
+//
