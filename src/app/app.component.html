@@ -53,3 +53,20 @@
     </div>
   </div>
 </div>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//app.html(fatma)
+<app-navbar ></app-navbar>
+
+<router-outlet></router-outlet> <!-- utile seulement si tu charges d'autres composants dans app -->
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-4">
+    <app-carte
+    *ngFor="let carte of cartes"
+      [image]="carte.image"
+      [title]="carte.title"
+      [subtitle]="carte.subtitle"
+      [description]="carte.description">
+    </app-carte>
+      
+  </div>
+//
