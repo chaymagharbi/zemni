@@ -7,8 +7,10 @@ import { Restoration2Component } from './restoration2/restoration2.component';
 import { Restoration3Component } from './restoration3/restoration3.component';
 import { ModifierComponent } from './modifier/modifier.component';
 import { SupprimerComponent } from './supprimer/supprimer.component';
-import { AjouterComponent } from './ajouter/ajouter.component';
+/*import { AjouterComponent } from './ajouter/ajouter.component';*/-->fatma
+import { AppComponent } from './app.component';
 export const appRoutes: Routes = [
+ /* { path: '', component: AppComponent },*/-->fatma
   {path: 'ajouter', component: AjouterComponent },
   {path: 'supprimer', component: SupprimerComponent },
   { path: 'modifier', component: ModifierComponent },
