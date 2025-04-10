@@ -98,3 +98,182 @@ main {
   max-width: 100%;
   height: auto;
 }
+--------------------------------------------------------------------------------------------------------------------------------------------
+// app.css(fatma)
+/* --- Structure globale --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  main {
+    flex: 1;
+  }
+  
+  /* --- Navbar --- */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar-logo img {
+    height: 30px;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+  
+  .navbar-start,
+  .navbar-end {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar-item {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .navbar-item.active {
+    color: orange;
+  }
+  
+  .navbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 30px;
+  }
+  
+  .navbar-search input {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+  }
+  
+  /* --- Hero Section (image + texte) --- */
+  .hero-section {
+    background-image: url('/assets/baner.jpg');
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Assurez-vous que le texte est visible */
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24px;
+    line-height: 1.6;
+  }
+  
+  
+  /* --- Boutons admin à droite --- */
+  .admin-actions-global {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+  }
+  
+  .admin-actions-global button {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: #333;
+    font-size: 18px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, background-color 0.3s;
+  }
+  
+  .admin-actions-global button:hover {
+    background-color: orange;
+  }
+  
+  .admin-actions-global button i {
+    pointer-events: none;
+  }
+  
+  .admin-actions-global button + button {
+    margin-top: 10px;
+  }
+  
+  /* --- Footer avec flèches --- */
+  .footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+  }
+  
+  .footer .arrow {
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .footer .arrow:hover {
+    background-color: orange;
+    color: #fff;
+  }
+  
+  .footer .arrow.active {
+    background-color: orange;
+    color: white;
+  }
+  .cards-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
+    background-color: #fafafa;
+  }
+  .cartes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px;
+  }
+    
+  //
+
