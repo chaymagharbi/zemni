@@ -50,13 +50,15 @@ export class CarteService {
   }
 
   // Méthode pour modifier une carte existante
-  updateCarte(updatedCarte: Carte): void {
-    const index = this.cartes.findIndex(carte => carte.id === updatedCarte.id);
+  updateCarte(modifiedCarte: Carte): boolean {
+    const index = this.cartes.findIndex(c => c.id === modifiedCarte.id);
     if (index !== -1) {
-      this.cartes[index] = updatedCarte;
+      this.cartes[index] = { ...modifiedCarte }; // applique bien les changements
+      return true;
     }
+    return false;
   }
-
+  
   // Méthode pour supprimer une carte
   deleteCarte(id: string): void {
     const index = this.cartes.findIndex(carte => carte.id === id);

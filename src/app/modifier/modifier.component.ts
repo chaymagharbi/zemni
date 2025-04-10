@@ -16,10 +16,12 @@ export class ModifierComponent {
   carteId: string = '';
   carte: Carte | null = null;
   errorMessage: string = '';
-
+  originalId: string = '';
+  isModified = false;
   constructor(private router: Router, private carteService: CarteService) {}
 
   onSearch() {
+    this.isModified = false;
     if (!this.carteId.trim()) {
       this.errorMessage = "Veuillez entrer un ID.";
       this.carte = null;
@@ -32,18 +34,32 @@ export class ModifierComponent {
       this.errorMessage = "Aucune carte trouvée avec cet ID.";
       this.carte = null;
     } else {
-      this.carte = { ...foundCarte }; // Cloner pour modification
+      this.carte = JSON.parse(JSON.stringify(foundCarte));
       this.errorMessage = '';
     }
   }
 
   onConfirmModifier() {
-    if (this.carte) {
-      this.carteService.updateCarte(this.carte);
-      console.log("Carte modifiée :", this.carte);
-      this.router.navigate(['/']);
+    if (!this.carte) return;
+
+    // Vérifie si des modifications ont été faites
+    const originalCarte = this.carteService.getCarteById(this.carte.id);
+    if (JSON.stringify(originalCarte) === JSON.stringify(this.carte)) {
+      this.errorMessage = "Aucune modification détectée.";
+      return;
     }
-  }
+
+    // Appel le service et vérifie le succès
+    if (this.carteService.updateCarte(this.carte)) {
+      this.isModified = true;
+      this.errorMessage = "Carte mise à jour avec succès !";
+      setTimeout(() => {
+        this.router.navigate(['/']); // ou /patrimoine3 si tu veux rediriger direct là-bas
+      }, 1500);
+    } else {
+      this.errorMessage = "Échec de la mise à jour de la carte.";
+    }
+  } 
 
   onCancel() {
     this.router.navigate(['/']);
