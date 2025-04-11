@@ -17,3 +17,29 @@ export class CarteComponent {
   @Input() description!: string;
   @Input() adresse!: string;
 }
+-------------------------
+  /* carte.component.ts(fatma)
+  import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-carte',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './carte.component.html',
+  styleUrls: ['./carte.component.css']
+})
+export class CarteComponent {
+  @Input() image!: string;
+  @Input() title!: string;
+  @Input() subtitle!: string;
+  @Input() description!: string;
+
+  isExpanded = false;
+  readonly maxChars = 100; // nombre de caractères avant les "..."
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
+}
+*/
