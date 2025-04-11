@@ -14,6 +14,10 @@ import { Carte } from '../models/carte.interface';
   styleUrls: ['./patrimoine3.component.scss']
 })
 export class Patrimoine3Component implements OnInit {
+  imgData = {
+    imageSrc: '/assets/vert.jpg',
+    text: 'naarjalek dima'
+  };
   cartes: Carte[] = [];
 
   nouvelleCarte: Carte = {

@@ -10,6 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './patrimoine2.component.scss'
 })
 export class Patrimoine2Component {
+  imgData = {
+    imageSrc: '/assets/vert.jpg',
+    text: 'naarjalek dima'
+  };
   cartes = [
     {
       image: '/assets/kerkouane.webp',

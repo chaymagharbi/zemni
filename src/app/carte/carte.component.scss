@@ -24,35 +24,7 @@
     height: 200px;
     object-fit: cover;
   }
-  -----------------------------------------------
-/* carte.component.css(fatma)
-<img [src]="image" [alt]="title" />
 
-<div class="card-body">
-  <h3>{{ title }}</h3>
-  <h4>{{ subtitle }}</h4>
-
-  <p class="card-description">
-    <!-- Version réduite -->
-    <ng-container *ngIf="!isExpanded">
-      {{ description | slice:0:maxChars }}
-      <span class="ellipsis" (click)="toggleExpand()">...</span>
-    </ng-container>
-
-    <!-- Version étendue -->
-    <ng-container *ngIf="isExpanded">
-      {{ description }}
-      <span class="ellipsis" (click)="toggleExpand()"> <!-- on reclique sur "..." -->
-        <!-- vous pouvez changer le texte ici si vous voulez indiquer "moins" -->
-        ...
-      </span>
-    </ng-container>
-  </p>
-
-  <!-- Bouton Explorer inchangé -->
-  <button class="explore-button">Explorer</button>
-</div>
-*/
   .carte-content {
     padding: 16px;
     background-color: #fff;

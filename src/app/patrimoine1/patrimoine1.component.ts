@@ -14,6 +14,10 @@ import { RouterModule } from '@angular/router';
   imports: [NavbarComponent, ImgprComponent, CommonModule, CarteComponent]
 })
 export class Patrimoine1Component {
+  imgData = {
+    imageSrc: '/assets/vert.jpg',
+    text: 'naarjalek dima'
+  };
   cartes = [
     {
       image: '/assets/sbeitla.jpg',
