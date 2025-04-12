@@ -1,25 +1,8 @@
 <div class="carte">
-  <!-- Image de la carte -->
-  <img [src]="image" alt="titre" class="carte-image" />
-
-  <!-- Contenu de la carte -->
-  <div class="card-body">
+  <img [src]="image" alt="Image de la carte" class="carte-image" />
+  <div class="carte-content">
     <h3>{{ titre }}</h3>
-   <h4>{{ subtitle }}</h4>
-    <!-- Description tronquée avec bouton pour étendre -->
-    <p class="card-description">
-      <ng-container *ngIf="!isExpanded">
-        {{ description | slice: 0 : maxChars }}
-        <span class="ellipsis" (click)="toggleExpand()">...</span>
-      </ng-container>
-
-      <ng-container *ngIf="isExpanded">
-        {{ description }}
-        <span class="ellipsis" (click)="toggleExpand()">...</span>
-      </ng-container>
-    </p>
-
-    <!-- Bouton d'exploration -->
-    <button class="explore-button">Explorer</button>
+    <p>{{ description }}</p>
+    <p><strong>Adresse:</strong> {{ adresse }}</p>
   </div>
 </div>

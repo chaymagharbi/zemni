@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Patrimoine3Component } from './patrimoine3.component';
+import { CarteAccComponent } from './carte-acc.component';
 
-describe('Patrimoine3Component', () => {
-  let component: Patrimoine3Component;
-  let fixture: ComponentFixture<Patrimoine3Component>;
+describe('CarteAccComponent', () => {
+  let component: CarteAccComponent;
+  let fixture: ComponentFixture<CarteAccComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Patrimoine3Component]
+      imports: [CarteAccComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Patrimoine3Component);
+    fixture = TestBed.createComponent(CarteAccComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

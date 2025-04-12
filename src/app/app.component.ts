@@ -7,32 +7,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ImgprComponent } from './imgpr/imgpr.component';
 import { Carte } from './models/carte.interface';
 import { CarteService } from './services/carte.service';
-import { CarteComponent } from './carte/carte.component';
-
+import { CarteAccComponent } from './carte-acc/carte-acc.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule, NavbarComponent, ImgprComponent, CarteComponent],
-  template: `
-     <app-navbar
-    *ngIf="!isAdminPage && !isRecherchePage"
-    (adminModeChanged)="toggleAdminMode()"
-    (searchEvent)="filtrerCartesGlobale($event)">
-  </app-navbar>
-    <app-imgpr
-    *ngIf="!isAdminPage && !isRecherchePage"
-    [imageSrc]="imgData.imageSrc"
-    [text]="imgData.text">
-  </app-imgpr>
-    <div class="cartes-container">
-      <app-carte
-        *ngFor="let carte of cartes"
-        [image]="carte.image"
-        [titre]="carte.titre"
-        [description]="carte.description">
-      </app-carte>
-    </div>
-  `,
+  imports: [RouterModule, CommonModule, NavbarComponent, ImgprComponent, CarteAccComponent],
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
@@ -40,6 +20,7 @@ export class AppComponent {
   isRestaurationActive = false;
   isAdminPage = false;
   isRecherchePage = false;
+  isHomePage = false;
 
   toutesCartes: Carte[] = [];
 
@@ -47,22 +28,22 @@ export class AppComponent {
     {
       image: 'assets/dmak.jpg',
       titre: '<:<Dmak>:>',
-      description: '“« Dmak » désigne cette invitation gourmande à la dégustation de plats tunisiens...',
+      description: '“« Dmak » désigne cette invitation gourmande à la dégustation de plats tunisiens ou chaque  bouchée est un concentré de ',
     },
     {
       image: 'assets/kachech.jpg',
       titre: '<:<kachech>:>',
-      description: '“« Kachech » désigne bien plus qu’un simple vêtement : c’est le symbole vivant du raffinement...',
+      description: '“« Kachech » désigne bien plus qu’un simple vêtement : c’est le symbole vivant du raffinement',
     },
     {
       image: 'assets/kayda.jpg',
       titre: '<:<kaayda al kif>:>',
-      description: '“« Kaayda al kif » évoque l’art de savourer pleinement l’instant présent...',
+      description: '“« Kaayda al kif » évoque l’art de savourer pleinement l’instant présent',
     },
     {
       image: 'assets/narjalekdima.jpg',
-      titre: '<:<Narjalekdima>:>',
-      description: '“« Narjaalek dima » est bien plus qu’une simple expression ; c’est une promesse...',
+      titre: '<:<Narjalek dima>:>',
+      description: '“« Narjaalek dima » est bien plus qu’une simple expression ; c’est une promesse',
     }
   ];
 
@@ -77,33 +58,21 @@ export class AppComponent {
 
     // Détection de la page actuelle
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        const url = event.urlAfterRedirects || event.url;
-        this.isAdminPage = ['/ajouter', '/modifier', '/supprimer'].includes(url);
-        this.isRecherchePage = url.includes('/recherche');
-      });
+  .pipe(filter(event => event instanceof NavigationEnd))
+  .subscribe((event: NavigationEnd) => {
+    const url = event.urlAfterRedirects || event.url;
+    this.isAdminPage = ['/ajouter', '/modifier', '/supprimer'].includes(url);
+    this.isRecherchePage = url.includes('/recherche');
+    this.isHomePage = url === '/' ;
+  });
+
+  
   }
 
   toggleAdminMode() {
     this.adminMode = !this.adminMode;
   }
 
-  toggleCategory() {
-    this.isRestaurationActive = !this.isRestaurationActive;
-
-    if (this.isRestaurationActive) {
-      this.updateImgData('assets/darzohra.jpg', 'Kaayda Al Kif');
-      this.router.navigate(['/restauration1']);
-    } else {
-      this.updateImgData('assets/vert.jpg', 'Narjaalek dima');
-      this.router.navigate(['/patrimoine1']);
-    }
-  }
-
-  updateImgData(imageSrc: string, text: string) {
-    this.imgData = { imageSrc, text };
-  }
 
   ajouter() {
     this.router.navigate(['/ajouter'], { state: { carte: null } });

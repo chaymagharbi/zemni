@@ -1,31 +1,33 @@
-<main>
 
-  <!-- Barre de navigation -->
+<div class="app-wrapper">
+
+  <!-- Navbar affichée uniquement hors admin & recherche -->
   <app-navbar
     *ngIf="!isAdminPage && !isRecherchePage"
     (adminModeChanged)="toggleAdminMode()"
     (searchEvent)="filtrerCartesGlobale($event)">
   </app-navbar>
 
-  <!-- Image principale -->
+  <!-- Image principale uniquement hors admin & recherche -->
   <app-imgpr
-    *ngIf="!isAdminPage && !isRecherchePage"
+    *ngIf="!isAdminPage && !isRecherchePage && isHomePage"
     [imageSrc]="imgData.imageSrc"
     [text]="imgData.text">
   </app-imgpr>
-<router-outlet></router-outlet>
-  <!-- Cartes affichées (mode normal, hors admin et recherche) -->
-  <div class="cartes-container">
-    <app-carte
+
+  <!-- Zone de rendu des routes dynamiques -->
+
+  <!-- Cartes visibles uniquement sur la page d'accueil -->
+  <div class="cartes-container" *ngIf="isHomePage ">
+    <app-carte-acc
       *ngFor="let carte of cartes"
       [image]="carte.image"
       [titre]="carte.titre"
       [description]="carte.description">
-    </app-carte>
+    </app-carte-acc>
   </div>
 
-  <!-- Actions Admin visibles uniquement si adminMode est activé 
-       et que ce n'est pas une page admin ni une page de recherche -->
+  <!-- Actions admin globales uniquement en mode admin, hors page admin/recherche -->
   <div
     *ngIf="adminMode && !isAdminPage && !isRecherchePage"
     class="admin-actions-global">
@@ -42,21 +44,5 @@
       <i class="fas fa-trash-alt"></i>
     </button>
   </div>
-</main>
-
-      <!-- 
-<div class="footer" *ngIf="!isAdminPage && !isRecherchePage">
-    <div *ngIf="!isRestaurationActive" class="patrimoine-container">
-      <a routerLink="/patrimoine1" routerLinkActive="active" class="arrow">1</a>
-      <a routerLink="/patrimoine2" routerLinkActive="active" class="arrow">2</a>
-      <a routerLink="/patrimoine3" routerLinkActive="active" class="arrow">3</a>
-    </div>
-
-    <div *ngIf="isRestaurationActive" class="restauration-container">
-      <a routerLink="/restauration1" routerLinkActive="active" class="arrow">1</a>
-      <a routerLink="/restauration2" routerLinkActive="active" class="arrow">2</a>
-      <a routerLink="/restauration3" routerLinkActive="active" class="arrow">3</a>
-    </div>
-  </div>
-
--->
+</div>
+  <router-outlet></router-outlet>

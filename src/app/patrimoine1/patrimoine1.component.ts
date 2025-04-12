@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ImgprComponent } from '../imgpr/imgpr.component';
 import { CarteComponent } from '../carte/carte.component';
@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { identifierName } from '@angular/compiler';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { Carte } from '../models/carte.interface';
+import { CarteService } from '../services/carte.service';
 @Component({
   selector: 'app-patrimoine1',
   standalone: true,
@@ -13,43 +15,55 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./patrimoine1.component.scss'],
   imports: [NavbarComponent, ImgprComponent, CommonModule, CarteComponent]
 })
-export class Patrimoine1Component {
-  imgData = {
-    imageSrc: '/assets/vert.jpg',
-    text: 'naarjalek dima'
-  };
-  cartes = [
-    {
-      image: '/assets/sbeitla.jpg',
-      id:'1.1',
-      titre: 'Musée de Sbeitla',
-      description: 'Ruines romaines impressionnantes avec trois temples capitolins.',
-      adresse: 'Sbeitla, Gouvernorat de Kasserine'
-    },
-    {
-      image: '/assets/gightis.jpg',
-      titre: 'Gightis',
-      id:'1.2',
-      description: 'Ancienne cité romaine avec thermes, temples et habitations.',
-      adresse: 'Près de Boughrara, Gouvernorat de Médenine'
-    },
-    {
-      image: '/assets/ain_kan.jpg',
-      titre: 'Ain Kanassira',
-      id:'1.3',
-      description: 'Située à environ 1h30 de Tunis, cette source d\'eau chaude à 44°C est nichée entre mer et montagne, offrant un cadre unique pour le camping.',
-      adresse: 'Ain Kanassira, près de Korbous, Gouvernorat de Nabeul.'
+export class Patrimoine1Component implements OnInit {
+  adminMode = false;
+    isRestaurationActive = false;
+    isAdminPage = false;
+    isRecherchePage = false;
+    imgData = {
+        imageSrc: '/assets/vert.jpg',
+        text: 'naarjalek dima'
+      };
+      cartes: Carte[] = [];
+    
+      nouvelleCarte: Carte = {
+        imageUrl: '',
+        titre: '',
+        id: '',
+        description: '',
+        adresse: ''
+      };
+    
+      constructor(private carteService: CarteService) {}
+    
+      ngOnInit() {
+        this.loadCartes(); // recharge les cartes à l'initialisation
+      }
+    
+      loadCartes() {
+        const toutesLesCartes = this.carteService.getAllCartes();
+    
+        this.cartes = toutesLesCartes
+          .filter((carte: Carte) => carte.id.startsWith('1.')) // typage explicite
+          .map((carte: Carte) => ({ ...carte })); // copie conforme
+      }
+    
+      ajouterCarte() {
+        const idNumber = parseFloat(this.nouvelleCarte.id.split('.')[1]);
+    
+        if (this.nouvelleCarte.id.startsWith('1.') ) {
+          this.carteService.addCarte({ ...this.nouvelleCarte }); // copie pour éviter mutation
+          this.loadCartes(); // mise à jour de la liste affichée
+          this.nouvelleCarte = {
+            imageUrl: '',
+            titre: '',
+            id: '',
+            description: '',
+            adresse: ''
+          };
+        } else {
+          alert("L'ID doit être 1.x");
+        }
+      }
     }
-  ];
-  constructor(private router: Router) {}
-
-  // Méthode pour naviguer vers la page de suppression
-  goToDelete(id: number) {
-    this.router.navigate(['/supprimer', id]);
-  }
-
-  // Méthode pour naviguer vers la page de modification
-  goToEdit(id: number) {
-    this.router.navigate(['/modifier', id]);
-  }
-}
+    

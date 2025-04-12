@@ -1,12 +1,20 @@
-<app-navbar></app-navbar>
-<app-imgpr></app-imgpr>
-
+<app-imgpr 
+    *ngIf="!isAdminPage && !isRecherchePage "
+    [imageSrc]="imgData.imageSrc"
+    [text]="imgData.text" >
+</app-imgpr>
 <div class="carte-container">
-  <app-carte
-    *ngFor="let carte of cartes"
-    [image]="carte.image"
-    [titre]="carte.titre"
-    [description]="carte.description"
-    [adresse]="carte.adresse">
-  </app-carte>
+  <div *ngFor="let carte of cartes" class="carte">
+    <img [src]="carte.imageUrl" [alt]="carte.titre" />
+    <div class="carte-content">
+      <h3>{{ carte.titre }}</h3>
+      <p>{{ carte.description }}</p>
+      <p>
+        <strong>Adresse:</strong>
+        <a [href]="'https://www.google.com/maps?q=' + carte.adresse" target="_blank" rel="noopener noreferrer">
+          {{ carte.adresse }}
+        </a>
+      </p>
+    </div>
+  </div>
 </div>
