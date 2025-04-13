@@ -22,7 +22,7 @@ export class Patrimoine1Component implements OnInit {
     isRecherchePage = false;
     imgData = {
         imageSrc: '/assets/vert.jpg',
-        text: 'naarjalek dima'
+        text: 'Narjalek dima'
       };
       cartes: Carte[] = [];
     

@@ -20,7 +20,7 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
   isRecherchePage = false;
   imgData = {
     imageSrc: '/assets/darzohra.jpg',
-    text: 'kayyda al kif'
+    text: 'kaayda al kif'
   };
   cartes: Carte[] = [];
 

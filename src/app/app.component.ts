@@ -16,6 +16,7 @@ import { CarteAccComponent } from './carte-acc/carte-acc.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title= 'zemni';
   adminMode = false;
   isRestaurationActive = false;
   isAdminPage = false;
