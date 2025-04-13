@@ -66,5 +66,8 @@ export class Gastronomie1Component implements OnInit{
           alert("L'ID doit être 3.x");
         }
       }
+      toggleAdminMode() {
+        this.adminMode = !this.adminMode;
+      }
     }
     

@@ -4,12 +4,12 @@ import { Restoration1Component } from './restoration1/restoration1.component';
 import { ModifierComponent } from './modifier/modifier.component';
 import { SupprimerComponent } from './supprimer/supprimer.component';
 import { AjouterComponent } from './ajouter/ajouter.component';
-import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { Gastronomie1Component } from './gastronomie1/gastronomie1.component';
 import { Vetement1Component } from './vetement1/vetement1.component';
 import { RechercheComponent } from './recherche/recherche.component';
 export const appRoutes: Routes = [
- { path: '', component: AppComponent },
+  { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
   {path: 'ajouter', component: AjouterComponent },
   {path: 'supprimer', component: SupprimerComponent },
   { path: 'modifier', component: ModifierComponent },

@@ -81,4 +81,7 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
       adresse: ''
     };
   }
+  toggleAdminMode() {
+    this.adminMode = !this.adminMode;
+  }
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class NavbarComponent {
   adminMode = false;
   searchTerm = '';
+  constructor(private router: Router) {}
 
   @Output() adminModeChanged = new EventEmitter<boolean>();
   @Output() searchEvent = new EventEmitter<string>();
@@ -23,6 +24,9 @@ export class NavbarComponent {
   }
 
   onSearchChange() {
-    this.searchEvent.emit(this.searchTerm);
-  }
+    if (this.searchTerm.trim()) {
+      this.router.navigate(['/recherche'], {
+        queryParams: { q: this.searchTerm.trim() }
+      });
+    }}
 }

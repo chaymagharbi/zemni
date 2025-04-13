@@ -1,3 +1,7 @@
+<app-navbar
+      *ngIf="!isAdminPage && !isRecherchePage"
+      (adminModeChanged)="toggleAdminMode()">
+    </app-navbar>
 <app-imgpr 
     *ngIf="!isAdminPage && !isRecherchePage "
     [imageSrc]="imgData.imageSrc"

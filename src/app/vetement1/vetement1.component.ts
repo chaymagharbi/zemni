@@ -63,5 +63,8 @@ export class Vetement1Component implements OnInit{adminMode = false;
         alert("L'ID doit être 4.x");
       }
     }
+    toggleAdminMode() {
+      this.adminMode = !this.adminMode;
+    }
   }
   
