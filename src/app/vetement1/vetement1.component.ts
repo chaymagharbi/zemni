@@ -19,7 +19,7 @@ export class Vetement1Component implements OnInit{adminMode = false;
   isAdminPage = false;
   isRecherchePage = false;
   imgData = {
-      imageSrc: '',
+      imageSrc: '/assets/bgkachech.jpg',// a changer
       text: 'Kachech'
     };
     cartes: Carte[] = [];

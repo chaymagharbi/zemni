@@ -21,7 +21,7 @@ export class Gastronomie1Component implements OnInit{
     isAdminPage = false;
     isRecherchePage = false;
     imgData = {
-        imageSrc: '',// a changer 
+        imageSrc: '/assets/dmaakk.jpg',// a changer 
         text: 'Dmak'
       };
       cartes: Carte[] = [];
