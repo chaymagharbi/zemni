@@ -21,51 +21,28 @@
 
     <!-- Formulaire de modification si la carte est trouvée -->
     <div *ngIf="carte">
-      <h2>Modifier un endroit</h2>
+      <h2>Modifier un {{ getNomLabel() }}</h2>
       <form (ngSubmit)="onConfirmModifier()">
-        <label for="id">ID du endroit</label>
-        <input
-          type="text"
-          id="id"
-          [value]="carte.id"
-          disabled
-        />
+      <label for="id">ID du {{ getNomLabel() }}</label>
+      <input type="text" id="id" [value]="carte.id" disabled />
 
-        <label for="titre">Nom de l'endroit</label>
-        <input
-          type="text"
-          id="titre"
-          [(ngModel)]="carte.titre"
-          name="titre"
-          required
-        />
+      <label for="titre">Nom du {{ getNomLabel() }}</label>
+      <input type="text" id="titre" [(ngModel)]="carte.titre" name="titre" required />
 
-        <label for="description">Description</label>
-        <input
-          type="text"
-          id="description"
-          [(ngModel)]="carte.description"
-          name="description"
-          required
-        />
+      <label for="description">Description</label>
+      <input type="text" id="description" [(ngModel)]="carte.description" name="description" required />
 
-        <label for="adresse">Adresse</label>
-        <input
-          type="text"
-          id="adresse"
-          [(ngModel)]="carte.adresse"
-          name="adresse"
-          required
-        />
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" required />
 
-        <label for="imageUrl">URL de l'image</label>
-        <input
-          type="text"
-          id="imageUrl"
-          [(ngModel)]="carte.imageUrl"
-          name="imageUrl"
-          required
-        />
+      <label for="imageUrl">URL de l'image</label>
+      <input type="text" id="imageUrl" [(ngModel)]="carte.imageUrl" name="imageUrl" required />
+
+      <div *ngIf="shouldShowIntervallePrix()">
+      <label for="intervallePrix">Intervalle de prix</label>
+      <input type="text" id="intervallePrix" [(ngModel)]="carte.intervallePrix" name="intervallePrix" required />
+      </div>
+
 
         <div class="button-group">
           <button type="submit" class="add-btn">

@@ -32,7 +32,7 @@ export class Vetement1Component implements OnInit{adminMode = false;
       adresse: ''
     };
   
-    constructor(private carteService: CarteService) {}
+    constructor(private carteService: CarteService,private router: Router) {}
   
     ngOnInit() {
       this.loadCartes(); // recharge les cartes à l'initialisation
@@ -65,6 +65,20 @@ export class Vetement1Component implements OnInit{adminMode = false;
     }
     toggleAdminMode() {
       this.adminMode = !this.adminMode;
+    }
+    ajouter() {
+      console.log("Naviguer vers le composant AjouterCarte");
+      this.router.navigate(['/ajouter']);
+    }
+  
+    modifier() {
+      console.log("Naviguer vers le composant ModifierCarte");
+      this.router.navigate(['/modifier']);
+    }
+  
+    supprimer() {
+      console.log("Naviguer vers le composant SupprimerCarte");
+      this.router.navigate(['/supprimer']);
     }
   }
   

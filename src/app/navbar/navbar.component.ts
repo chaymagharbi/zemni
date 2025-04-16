@@ -20,6 +20,7 @@ export class NavbarComponent {
 
   toggleAdminMode() {
     this.adminMode = !this.adminMode;
+    console.log(" Click sur icône admin. Mode =", this.adminMode);
     this.adminModeChanged.emit(this.adminMode);
   }
 

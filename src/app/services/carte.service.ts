@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Carte } from '../models/carte.interface';  // Assure-toi que le chemin est correct
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root'  // Cela permet au service d'être injecté dans n'importe quel composant sans avoir à l'ajouter dans les imports du module
 })
@@ -72,7 +71,7 @@ export class CarteService {
   addCarte(carte: Carte): void {
     this.cartes.push(carte);
   }
-
+  
   // Méthode pour modifier une carte existante
   updateCarte(modifiedCarte: Carte): boolean {
     const index = this.cartes.findIndex(c => c.id === modifiedCarte.id);

@@ -37,7 +37,7 @@ export class Patrimoine1Component implements OnInit {
     adresse: ''
   };
 
-  constructor(private carteService: CarteService) {}
+  constructor(private carteService: CarteService,private router: Router) {}
 
   ngOnInit() {
     this.loadCartes(); // recharge les cartes à l'initialisation
@@ -71,6 +71,20 @@ export class Patrimoine1Component implements OnInit {
 
   toggleAdminMode() {
     this.adminMode = !this.adminMode;
+  }
+  ajouter() {
+    console.log("Naviguer vers le composant AjouterCarte");
+    this.router.navigate(['/ajouter']);
+  }
+
+  modifier() {
+    console.log("Naviguer vers le composant ModifierCarte");
+    this.router.navigate(['/modifier']);
+  }
+
+  supprimer() {
+    console.log("Naviguer vers le composant SupprimerCarte");
+    this.router.navigate(['/supprimer']);
   }
   
 }

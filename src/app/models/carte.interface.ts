@@ -5,5 +5,6 @@ export interface Carte {
     description: string;
     adresse: string;
     imageUrl: string;
+    intervallePrix?: string; 
   }
   

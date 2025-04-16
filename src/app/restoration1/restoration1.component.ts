@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Carte } from '../models/carte.interface';
 import { CarteService } from '../services/carte.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // CHANGEMENT: Added Router import
 @Component({
   selector: 'app-restoration1',
   imports: [NavbarComponent, ImgprComponent, CommonModule, CarteComponent,FormsModule],
@@ -32,7 +33,7 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
     adresse: ''
   };
 
-  constructor(private carteService: CarteService) {}
+  constructor(private carteService: CarteService,private router: Router) {}
 
   ngOnInit(): void { // CHANGEMENT: Proper OnInit implementation
     this.loadCartes();
@@ -83,5 +84,19 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
   }
   toggleAdminMode() {
     this.adminMode = !this.adminMode;
+  }
+  ajouter() {
+    console.log("Naviguer vers le composant AjouterCarte");
+    this.router.navigate(['/ajouter']);
+  }
+
+  modifier() {
+    console.log("Naviguer vers le composant ModifierCarte");
+    this.router.navigate(['/modifier']);
+  }
+
+  supprimer() {
+    console.log("Naviguer vers le composant SupprimerCarte");
+    this.router.navigate(['/supprimer']);
   }
 }

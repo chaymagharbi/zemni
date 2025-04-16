@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Carte } from '../models/carte.interface';
 import { CarteService } from '../services/carte.service';
 import { CommonModule } from '@angular/common';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-modifier',
   standalone: true,
@@ -18,7 +18,12 @@ export class ModifierComponent {
   errorMessage: string = '';
   originalId: string = '';
   isModified = false;
-  constructor(private router: Router, private carteService: CarteService) {}
+  categorie: string = '';
+  constructor(private router: Router, private carteService: CarteService,private route: ActivatedRoute ) {
+    this.route.queryParams.subscribe(params => {
+      this.categorie = params['categorie'] || '';
+  });
+}
 
   onSearch() {
     this.isModified = false;
@@ -64,4 +69,19 @@ export class ModifierComponent {
   onCancel() {
     this.router.navigate(['/']);
   }
+  getNomLabel(): string {
+    switch (this.categorie) {
+      case 'gastronomie':
+        return 'plat';
+      case 'vetement':
+        return 'vêtement';
+      default:
+        return 'endroit';
+    }
+  }
+  
+  shouldShowIntervallePrix(): boolean {
+    return this.categorie === 'gastronomie' || this.categorie === 'vetement';
+  }
+  
 }

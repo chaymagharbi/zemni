@@ -23,68 +23,75 @@ export class AjouterComponent {
 
   errorMessage: string = '';
   successMessage: string = '';
+  categorie: string = ''; // doit être défini via un <select> ou autre champ
 
   constructor(private carteService: CarteService, private router: Router) {}
 
-  onConfirmAjouter() {
-    const carteExistante = this.carteService.getCarteById(this.carte.id.trim());
+  ajouterCarte() {
+    const idTrim = this.carte.id.trim();
+    if (!idTrim) {
+      this.errorMessage = "L'ID est requis.";
+      return;
+    }
+
+    const carteExistante = this.carteService.getCarteById(idTrim);
 
     if (carteExistante) {
       this.errorMessage = "L'ID existe déjà. Veuillez choisir un autre ID.";
       this.successMessage = '';
-    } else {
-      this.carteService.addCarte(this.carte);
-      this.successMessage = "Carte ajoutée avec succès !";
-      this.errorMessage = '';
-
-      // Optionnel : reset du formulaire après ajout
-      this.carte = {
-        id: '',
-        titre: '',
-        description: '',
-        adresse: '',
-        imageUrl: ''
-      };
+      return;
     }
+
+    // Vérifier si intervallePrix est requis et non vide
+    if (this.shouldShowIntervallePrix() && !this.carte.intervallePrix?.trim()) {
+      this.errorMessage = "Veuillez renseigner l'intervalle de prix.";
+      this.successMessage = '';
+      return;
+    }
+
+    this.carteService.addCarte(this.carte);
+    this.successMessage = "Carte ajoutée avec succès !";
+    this.errorMessage = '';
+
+    // Redirection selon l'ID
+    if (idTrim.startsWith('1')) {
+      this.router.navigate(['/patrimoine3']);
+    } else if (idTrim.startsWith('2')) {
+      this.router.navigate(['/restoration3']);
+    } else {
+      alert("ID invalide : doit commencer par 1 (patrimoine) ou 2 (restauration).");
+    }
+
+    // Réinitialiser le formulaire
+    this.resetCarte();
+  }
+
+  shouldShowIntervallePrix(): boolean {
+    return this.categorie === 'gastronomie' || this.categorie === 'vetement';
+  }
+
+  resetCarte() {
+    this.carte = {
+      id: '',
+      titre: '',
+      description: '',
+      adresse: '',
+      imageUrl: ''
+      // Ne pas réinitialiser intervallePrix ici car il peut être défini via la catégorie
+    };
   }
 
   onCancel() {
     this.router.navigate(['/']);
   }
-  ajouterCarte() {
-    console.log("ajouterCarte appelée avec :", this.carte);
-    const carte = this.carte;
-  
-    const carteExistante = this.carteService.getCarteById(carte.id.trim());
-  
-    if (carteExistante) {
-      this.errorMessage = "L'ID existe déjà. Veuillez choisir un autre ID.";
-      this.successMessage = '';
-    } else {
-      this.carteService.addCarte(carte);
-      this.successMessage = "Carte ajoutée avec succès !";
-      this.errorMessage = '';
-  
-      // Rediriger vers la bonne page
-      if (carte.id.startsWith('1')) {
-        this.router.navigate(['/patrimoine3']);
-      } else if (carte.id.startsWith('2')) {
-        this.router.navigate(['/restoration3']);
-      } else {
-        alert("ID invalide : doit commencer par 1 (patrimoine) ou 2 (restauration).");
-      }
-  
-      // Reset du formulaire
-      this.carte = {
-        id: '',
-        titre: '',
-        description: '',
-        adresse: '',
-        imageUrl: ''
-      };
+  getNomLabel(): string {
+    switch (this.categorie) {
+      case 'gastronomie':
+        return 'plat';
+      case 'vetement':
+        return 'vêtement';
+      default:
+        return 'endroit';
     }
   }
-  
-  
 }
-

@@ -1,18 +1,27 @@
 <div class="ajout-endroit-container">
   <div class="form-box">
-    <button class="close-btn">&times;</button>
+    <button class="close-btn" (click)="onCancel()">&times;</button>
     <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
 
     <!-- Message d'erreur -->
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
 
-    <h2>Ajouter un endroit</h2>
+    <h2>Ajouter un {{ getNomLabel() }}</h2>
     <p class="subtext">Veuillez introduire des données valides!</p>
 
     <!-- Formulaire d'ajout -->
-    <form (ngSubmit)="onConfirmAjouter()">
-      <label for="id">ID de l'endroit</label>
+    <form (ngSubmit)="ajouterCarte()">
+      <label for="categorie">Catégorie</label>
+      <select id="categorie" [(ngModel)]="categorie" name="categorie" required>
+        <option value="" disabled selected>-- Choisir une catégorie --</option>
+        <option value="gastronomie">Gastronomie</option>
+        <option value="vetement">Vêtement</option>
+        <option value="restauration">Restauration</option>
+        <option value="patrimoine">Patrimoine</option>
+      </select>
+
+      <label for="id">ID de {{ getNomLabel() }}</label>
       <input
         id="id"
         type="text"
@@ -22,7 +31,7 @@
         required
       />
 
-      <label for="titre">Nom de l'endroit</label>
+      <label for="titre">Nom de {{ getNomLabel() }}</label>
       <input
         id="titre"
         type="text"
@@ -56,9 +65,22 @@
         type="text"
         [(ngModel)]="carte.imageUrl"
         name="imageUrl"
-        placeholder="exemple: http://www.domain.com/image.jpg"
+        placeholder="http://www.domain.com/image.jpg"
         required
       />
+
+      <!-- Champ intervallePrix affiché uniquement si nécessaire -->
+      <div *ngIf="shouldShowIntervallePrix()">
+        <label for="intervallePrix">Intervalle de prix</label>
+        <input
+          type="text"
+          id="intervallePrix"
+          [(ngModel)]="carte.intervallePrix"
+          name="intervallePrix"
+          placeholder="exemple : 15DT - 30DT"
+          required
+        />
+      </div>
 
       <div class="button-group">
         <button type="submit" class="add-btn">
