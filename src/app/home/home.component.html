@@ -8,10 +8,11 @@
   
     <!-- Image principale uniquement hors admin & recherche -->
     <app-imgpr
-      *ngIf="!isAdminPage && !isRecherchePage && isHomePage"
-      [imageSrc]="imgData.imageSrc"
-      [text]="imgData.text">
-    </app-imgpr>
+  *ngIf="!isAdminPage && !isRecherchePage && isHomePage"
+  [imageSrc]="imgData.imageSrc"
+  [text]="imgData.text">
+</app-imgpr>
+
   
     <!-- Zone de rendu des routes dynamiques -->
   

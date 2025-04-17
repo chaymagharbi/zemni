@@ -1,0 +1,24 @@
+.no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+    text-align: center;
+  
+    p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #666;
+    }
+  }
+  
+  .liste-cartes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 2rem;
+    justify-items: center;
+    align-items: stretch;
+  }
+  

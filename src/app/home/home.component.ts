@@ -48,7 +48,9 @@ export class HomeComponent {
 
   imgData = {
     imageSrc: 'assets/baner.jpg',
-    text: 'Découvrez, Savourez et vivez l\'âme du patrimoine tunisien',
+    text: `Découvrez, Savourez
+  et vivez l’âme du patrimoine tunisien
+  sur Zemni.tn`
   };
 
   constructor(private router: Router, private carteService: CarteService) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarteService } from '../services/carte.service';
 import { Carte } from '../models/carte.interface';
@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, CarteComponent, NavbarComponent],
   templateUrl: './recherche.component.html',
-  styleUrl: './recherche.component.scss'
+  styleUrl: './recherche.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class RechercheComponent implements OnInit {
   toutesCartes: Carte[] = [];
