@@ -20,7 +20,7 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
   isAdminPage = false;
   isRecherchePage = false;
   imgData = {
-    imageSrc: '/assets/darzohra.jpg',
+    imageSrc: '/assets/kaayyda.jpg',
     text: 'kaayda al kif'
   };
   cartes: Carte[] = [];
@@ -82,21 +82,5 @@ export class Restoration1Component implements OnInit { // CHANGEMENT: Implemente
       adresse: ''
     };
   }
-  toggleAdminMode() {
-    this.adminMode = !this.adminMode;
-  }
-  ajouter() {
-    console.log("Naviguer vers le composant AjouterCarte");
-    this.router.navigate(['/ajouter']);
-  }
-
-  modifier() {
-    console.log("Naviguer vers le composant ModifierCarte");
-    this.router.navigate(['/modifier']);
-  }
-
-  supprimer() {
-    console.log("Naviguer vers le composant SupprimerCarte");
-    this.router.navigate(['/supprimer']);
-  }
+ 
 }

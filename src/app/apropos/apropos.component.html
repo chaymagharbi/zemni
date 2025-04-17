@@ -1,0 +1,49 @@
+<!-- Affiche la barre de navigation uniquement si ce n'est pas une page admin ou recherche -->
+<app-navbar *ngIf="!isAdminPage && !isRecherchePage"></app-navbar>
+
+<!-- Conteneur principal -->
+<div class="a-propos-container">
+
+  <!-- 🎞️ Section du slider -->
+  <!-- 🎞️ Section du slider -->
+<div class="slider-section">
+    <img
+      [src]="currentImage"
+      [alt]="'Image ' + (currentImageIndex + 1)"
+      [@fadeIn] 
+    />
+  </div>
+
+  <!-- 💬 Contenu du texte animé -->
+  <div class="content">
+    <h1 class="title" [@fadeIn] >La Tunisie sous un autre angle</h1>
+    <h2 class="title" [@fadeIn]>Zemni.tn - Là où les racines rencontrent l'avenir</h2>
+
+    <p class="metaphor" [@fadeIn]>
+      "Zemni, c’est comme un olivier millénaire : enraciné dans la terre tunisienne,
+      nourri de traditions, et tourné vers le ciel de demain."
+    </p>
+
+    <p class="description" [@fadeIn]>
+      À travers Zemni.tn, nous faisons revivre l'âme de notre culture – ses parfums,
+      ses couleurs, ses voix.<br />
+      Nous semons des histoires, des plats, des habits et des lieux qui font la fierté de notre patrimoine.<br />
+      Chaque page est une branche, chaque carte une feuille, chaque visite un souffle de vent qui fait vibrer cet arbre vivant.
+    </p>
+
+    <p class="description" [@fadeIn]>
+      Avec passion et curiosité, nous tissons le fil entre le passé et le présent.<br />
+      Zemni.tn, ce n'est pas un simple site… C’est un carnet vivant de ce qui nous lie, un héritage à explorer, à aimer, à transmettre.
+    </p>
+
+    <!-- 👩‍🎓 Présentation des créatrices -->
+    <div class="etudiantes" [@fadeIn]>
+      <h2>Présenté avec amour par :</h2>
+      <ul>
+        <li>Chayma Gharbi</li>
+        <li>Boughanmi Fatma</li>
+        <li>Mansouri Maram</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <app-navbar
       *ngIf="!isAdminPage && !isRecherchePage"
-      (adminModeChanged)="toggleAdminMode()">
+    >
     </app-navbar>
 <app-imgpr 
     *ngIf="!isAdminPage && !isRecherchePage "
@@ -22,15 +22,3 @@
     </div>
   </div>
 </div>
-<div class="admin-actions-global" *ngIf="adminMode">
-  <button (click)="ajouter()" title="Ajouter">
-    <i class="fa fa-plus"></i>
-  </button>
-  <button (click)="modifier()" title="Modifier">
-    <i class="fa fa-edit"></i>
-  </button>
-  <button (click)="supprimer()" title="Supprimer">
-    <i class="fa fa-trash"></i>
-  </button>
-</div>
-

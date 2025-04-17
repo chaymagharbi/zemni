@@ -25,24 +25,47 @@ export class ModifierComponent {
   });
 }
 
-  onSearch() {
-    this.isModified = false;
-    if (!this.carteId.trim()) {
-      this.errorMessage = "Veuillez entrer un ID.";
-      this.carte = null;
-      return;
-    }
+onSearch() {
+  this.isModified = false;
 
-    const foundCarte = this.carteService.getCarteById(this.carteId.trim());
-
-    if (!foundCarte) {
-      this.errorMessage = "Aucune carte trouvée avec cet ID.";
-      this.carte = null;
-    } else {
-      this.carte = JSON.parse(JSON.stringify(foundCarte));
-      this.errorMessage = '';
-    }
+  if (!this.carteId.trim()) {
+    this.errorMessage = "Veuillez entrer un ID.";
+    this.carte = null;
+    return;
   }
+
+  const foundCarte = this.carteService.getCarteById(this.carteId.trim());
+
+  if (!foundCarte) {
+    this.errorMessage = "Aucune carte trouvée avec cet ID.";
+    this.carte = null;
+  } else {
+    this.carte = JSON.parse(JSON.stringify(foundCarte));
+    
+    // 🧠 Déduire la catégorie à partir de l'ID :
+    const prefix = this.carte!.id.split('.')[0];
+    switch (prefix) {
+      case '1':
+        this.categorie = 'patrimoine';
+        break;
+      case '2':
+        this.categorie = 'restauration';
+        break;
+      case '3':
+        this.categorie = 'gastronomie';
+        break;
+      case '4':
+        this.categorie = 'vetement';
+        break;
+      default:
+        this.categorie = '';
+    }
+
+    this.errorMessage = '';
+  }
+}
+
+
 
   onConfirmModifier() {
     if (!this.carte) return;
@@ -75,8 +98,12 @@ export class ModifierComponent {
         return 'plat';
       case 'vetement':
         return 'vêtement';
-      default:
+      case 'patrimoine':
         return 'endroit';
+      case 'restauration':
+        return 'endroit';
+      default:
+        return ''; 
     }
   }
   

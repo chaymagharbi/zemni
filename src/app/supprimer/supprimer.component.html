@@ -19,9 +19,9 @@
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
     <div *ngIf="carte">
-      <h2>Supprimer l'endroit</h2>
+      <h2>Supprimer</h2>
       <form (ngSubmit)="onConfirmDelete()">
-        <label for="id">ID du endroit</label>
+        <label for="id">ID</label>
         <input
           type="text"
           id="id"
@@ -30,7 +30,7 @@
           disabled
         />
 
-        <label for="titre">Nom de l'endroit</label>
+        <label for="titre">Nom </label>
         <input type="text" id="titre" [value]="carte.titre" disabled />
 
         <div class="button-group">

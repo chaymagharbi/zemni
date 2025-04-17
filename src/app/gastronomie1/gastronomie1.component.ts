@@ -65,24 +65,8 @@ export class Gastronomie1Component implements OnInit{
           alert("L'ID doit être 3.x");
         }
       }
-      toggleAdminMode() {
-        this.adminMode = !this.adminMode;
-
-      }
-      ajouter() {
-        console.log("Naviguer vers le composant AjouterCarte");
-        this.router.navigate(['/ajouter']);
-      }
-    
-      modifier() {
-        console.log("Naviguer vers le composant ModifierCarte");
-        this.router.navigate(['/modifier']);
-      }
-    
-      supprimer() {
-        console.log("Naviguer vers le composant SupprimerCarte");
-        this.router.navigate(['/supprimer']);
-      }
+      
+      
       
     }
     

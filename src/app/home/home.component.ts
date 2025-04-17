@@ -25,12 +25,12 @@ export class HomeComponent {
 
   cartes = [
     {
-      image: 'assets/dmak.jpg',
+      image: 'assets/food.jpg',
       titre: '<:<Dmak>:>',
       description: '“« Dmak » désigne cette invitation gourmande à la dégustation de plats tunisiens ou chaque  bouchée est un concentré de ',
     },
     {
-      image: 'assets/kachech.jpg',
+      image: 'assets/kk.jpg',
       titre: '<:<kachech>:>',
       description: '“« Kachech » désigne bien plus qu’un simple vêtement : c’est le symbole vivant du raffinement',
     },
@@ -72,36 +72,25 @@ export class HomeComponent {
     this.adminMode = !this.adminMode;
   }
 
-
   ajouter() {
-    this.router.navigate(['/ajouter'], { state: { carte: null } });
+    console.log("Naviguer vers le composant AjouterCarte");
+    this.router.navigate(['/ajouter']);
   }
 
   modifier() {
-    const carteToEdit: Carte = {
-      id: '1',
-      titre: 'Titre de la carte',
-      description: 'Description',
-      adresse: 'Adresse',
-      imageUrl: '/path/to/image'
-    };
-    this.router.navigate(['/modifier'], { state: { carte: carteToEdit } });
+    console.log("Naviguer vers le composant ModifierCarte");
+    this.router.navigate(['/modifier']);
   }
 
   supprimer() {
-    const carteToDelete: Carte = {
-      id: '1',
-      titre: 'Titre de la carte',
-      description: 'Description',
-      adresse: 'Adresse',
-      imageUrl: '/path/to/image'
-    };
-    this.router.navigate(['/supprimer'], { state: { carte: carteToDelete } });
+    console.log("Naviguer vers le composant SupprimerCarte");
+    this.router.navigate(['/supprimer']);
   }
 
   onEdit(carte: Carte) {
     this.router.navigate(['/modifier'], { state: { carte } });
   }
+  
   
 
 }

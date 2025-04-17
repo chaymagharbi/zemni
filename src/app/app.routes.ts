@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { Gastronomie1Component } from './gastronomie1/gastronomie1.component';
 import { Vetement1Component } from './vetement1/vetement1.component';
 import { RechercheComponent } from './recherche/recherche.component';
+import { AproposComponent } from './apropos/apropos.component';
 export const appRoutes: Routes = [
   {path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
   {path: 'ajouter', component: AjouterComponent },
@@ -18,49 +19,5 @@ export const appRoutes: Routes = [
   {path: 'vetement1', loadComponent: () => import('./vetement1/vetement1.component').then(m => m.Vetement1Component)},
   {path:'gastronomie1', loadComponent: () => import('./gastronomie1/gastronomie1.component').then(m => m.Gastronomie1Component)},
   {path: 'recherche',loadComponent: () => import('./recherche/recherche.component').then(m => m.RechercheComponent)},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  {path: 'apropos', loadComponent: () => import('./apropos/apropos.component').then(m => m.AproposComponent)},
 ];

@@ -63,22 +63,6 @@ export class Vetement1Component implements OnInit{adminMode = false;
         alert("L'ID doit être 4.x");
       }
     }
-    toggleAdminMode() {
-      this.adminMode = !this.adminMode;
-    }
-    ajouter() {
-      console.log("Naviguer vers le composant AjouterCarte");
-      this.router.navigate(['/ajouter']);
-    }
-  
-    modifier() {
-      console.log("Naviguer vers le composant ModifierCarte");
-      this.router.navigate(['/modifier']);
-    }
-  
-    supprimer() {
-      console.log("Naviguer vers le composant SupprimerCarte");
-      this.router.navigate(['/supprimer']);
-    }
+    
   }
   

@@ -69,22 +69,5 @@ export class Patrimoine1Component implements OnInit {
     }
   }
 
-  toggleAdminMode() {
-    this.adminMode = !this.adminMode;
-  }
-  ajouter() {
-    console.log("Naviguer vers le composant AjouterCarte");
-    this.router.navigate(['/ajouter']);
-  }
-
-  modifier() {
-    console.log("Naviguer vers le composant ModifierCarte");
-    this.router.navigate(['/modifier']);
-  }
-
-  supprimer() {
-    console.log("Naviguer vers le composant SupprimerCarte");
-    this.router.navigate(['/supprimer']);
-  }
   
 }
