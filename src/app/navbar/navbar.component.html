@@ -6,16 +6,17 @@
       <div class="navbar-start">
         <a class="navbar-item" routerLink="/">Acceuil</a>
         <a class="navbar-item" routerLink="/apropos">A propos</a>
-        <a class="navbar-item">Histoire</a>
+        <a class="navbar-item"routerLink="/article">Histoire</a>
       </div>
       <nav class="navbar">
         <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (input)="onSearchChange()"
-          placeholder="Rechercher..."
-          class="search-input"
-        />
+        type="text"
+        class="search-input"
+        placeholder="Rechercher..."
+        [(ngModel)]="searchTerm"
+        (keydown)="onTyping()"
+      />
+      
       </nav>
       
       <div class="navbar-end">

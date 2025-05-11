@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
 })
 export class ImgprComponent {
   @Input() imageSrc: string = '';
-  @Input() text: string = '';
+  @Input() text?: string = '';
 }

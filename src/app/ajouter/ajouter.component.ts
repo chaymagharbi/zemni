@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Carte } from '../models/carte.interface';
-import { CarteService } from '../services/carte.service';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { CarteService } from '../services/carte.service';
+import { Carte } from '../models/carte.interface';
 @Component({
   selector: 'app-ajouter',
   standalone: true,
@@ -13,93 +12,96 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./ajouter.component.scss']
 })
 export class AjouterComponent {
-  carte: Carte = {
-    id: '',
-    titre: '',
+  private carteService = inject(CarteService);
+  private router = inject(Router);
+
+  categories: Carte['categorie'][] = ['patrimoine', 'restauration', 'gastronomie', 'vetements'];  
+  nouvelleCarte: Omit<Carte, 'id'> = {
+    nom: '',
     description: '',
     adresse: '',
-    imageUrl: ''
+    imageurl: '',
+    categorie: 'patrimoine', // Valeur par défaut
+    prix: undefined // Initialisé comme undefined
   };
 
-  errorMessage: string = '';
-  successMessage: string = '';
-  categorie: string = ''; // doit être défini via un <select> ou autre champ
+  categorieSelectionnee = 'patrimoine';
+  errorMessage = '';
+  successMessage = '';
+  isSubmitting = false;
 
-  constructor(private carteService: CarteService, private router: Router) {}
+  get showPrixField(): boolean {
+    return this.categorieSelectionnee === 'gastronomie' || 
+           this.categorieSelectionnee === 'vetements';
+  }
 
-  ajouterCarte() {
-    const idTrim = this.carte.id.trim();
-    if (!idTrim) {
-      this.errorMessage = "L'ID est requis.";
-      return;
-    }
-  
-    // Vérifier préfixe d'ID selon la catégorie
-    const prefixeAttendu = this.getPrefixeIdCategorie(this.categorie);
-    if (!idTrim.startsWith(prefixeAttendu + '.')) {
-      this.errorMessage = `L'ID doit commencer par ${prefixeAttendu}. pour la catégorie ${this.categorie}.`;
-      this.successMessage = '';
-      return;
-    }
-  
-    const carteExistante = this.carteService.getCarteById(idTrim);
-    if (carteExistante) {
-      this.errorMessage = "L'ID existe déjà. Veuillez choisir un autre ID.";
-      this.successMessage = '';
-      return;
-    }
-  
-    if (this.shouldShowIntervallePrix() && !this.carte.intervallePrix?.trim()) {
-      this.errorMessage = "Veuillez renseigner l'intervalle de prix.";
-      this.successMessage = '';
-      return;
-    }
-  
-    this.carteService.addCarte(this.carte);
-    this.successMessage = "Carte ajoutée avec succès !";
+  async onSubmit() {
+    this.isSubmitting = true;
     this.errorMessage = '';
-  
-    // Redirection selon la catégorie
-    this.router.navigate([`/${this.categorie}3`]);
-  
-    this.resetCarte();
-  }
-  
-  shouldShowIntervallePrix(): boolean {
-    return this.categorie === 'gastronomie' || this.categorie === 'vetement';
+    this.successMessage = '';
+
+    if (!this.validateForm()) {
+      this.isSubmitting = false;
+      return;
+    }
+
+    try {
+      // Préparation des données avec typage strict
+      const carteData: Omit<Carte, 'id'> = {
+        nom: this.nouvelleCarte.nom,
+        description: this.nouvelleCarte.description,
+        adresse: this.nouvelleCarte.adresse,
+        imageurl: this.nouvelleCarte.imageurl,
+        categorie: this.nouvelleCarte.categorie,
+        prix: this.showPrixField ? this.nouvelleCarte.prix : undefined
+      };
+
+      await this.carteService.ajouterCarte(carteData);
+      this.successMessage = 'Carte ajoutée avec succès !';
+      this.resetForm();
+
+      setTimeout(() => {
+        this.router.navigate([`/${this.categorieSelectionnee}`]);
+      }, 1500);
+
+    } catch (error: any) {
+      this.errorMessage = error?.error?.detail || 'Erreur lors de l\'ajout. Vérifiez les données et le serveur.';
+      console.error('Erreur détaillée :', error);    
+    } finally {
+      this.isSubmitting = false;
+    }
   }
 
-  resetCarte() {
-    this.carte = {
-      id: '',
-      titre: '',
+  private validateForm(): boolean {
+    const requiredFields = [
+      this.nouvelleCarte.nom.trim(),
+      this.nouvelleCarte.description.trim(),
+      this.nouvelleCarte.adresse.trim(),
+      this.nouvelleCarte.imageurl.trim(),
+      this.categorieSelectionnee
+    ];
+
+    if (requiredFields.some(field => !field)) {
+      this.errorMessage = 'Tous les champs sont requis';
+      return false;
+    }
+
+    if (this.showPrixField && this.nouvelleCarte.prix === null) {
+      this.errorMessage = 'Le prix est requis pour cette catégorie';
+      return false;
+    }
+
+    return true;
+  }
+
+  resetForm() {
+    this.nouvelleCarte = {
+      nom: '',
       description: '',
       adresse: '',
-      imageUrl: ''
-      // Ne pas réinitialiser intervallePrix ici car il peut être défini via la catégorie
+      imageurl: '',
+      categorie: 'patrimoine', // Maintenu en cohérence avec la structure
+      prix: undefined          // Correctement typé comme undefined
     };
-  }
-
-  onCancel() {
-    this.router.navigate(['/']);
-  }
-  getNomLabel(): string {
-    switch (this.categorie) {
-      case 'gastronomie':
-        return 'plat';
-      case 'vetement':
-        return 'vêtement';
-      default:
-        return 'endroit';
-    }
-  }
-  getPrefixeIdCategorie(categorie: string): string {
-    switch (categorie) {
-      case 'patrimoine': return '1';
-      case 'restauration': return '2';
-      case 'gastronomie': return '3';
-      case 'vetement': return '4';
-      default: return '';
-    }
   }
 }

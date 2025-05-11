@@ -1,20 +1,19 @@
-import { Component,OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { filter } from 'rxjs/operators';
 import { ImgprComponent } from '../imgpr/imgpr.component';
 import { CarteComponent } from '../carte/carte.component';
 import { CommonModule } from '@angular/common';
-import { identifierName } from '@angular/compiler';
-import { RouterModule } from '@angular/router';
 import { Carte } from '../models/carte.interface';
 import { CarteService } from '../services/carte.service';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-patrimoine1',
   standalone: true,
   templateUrl: './patrimoine1.component.html',
   styleUrls: ['./patrimoine1.component.scss'],
-  imports: [NavbarComponent, ImgprComponent, CommonModule, CarteComponent]
+  imports: [NavbarComponent, ImgprComponent, CommonModule, CarteComponent, FormsModule]
 })
 export class Patrimoine1Component implements OnInit {
   adminMode = false;
@@ -30,44 +29,51 @@ export class Patrimoine1Component implements OnInit {
   cartes: Carte[] = [];
 
   nouvelleCarte: Carte = {
-    imageUrl: '',
-    titre: '',
-    id: '',
+    id: undefined, // auto-incrémenté
+    nom: '',
     description: '',
-    adresse: ''
+    adresse: '',
+    imageurl: '',
+    prix: undefined,
+    categorie: 'patrimoine'
   };
 
-  constructor(private carteService: CarteService,private router: Router) {}
+  constructor(private carteService: CarteService, private router: Router) {}
 
-  ngOnInit() {
-    this.loadCartes(); // recharge les cartes à l'initialisation
+  async ngOnInit() {
+    await this.carteService.chargerCartesDepuisBackend();
+    this.cartes = this.carteService.cartes().filter(carte => carte.categorie === 'patrimoine');
   }
+  
 
   loadCartes() {
-    const toutesLesCartes = this.carteService.getAllCartes();
-
-    this.cartes = toutesLesCartes
-      .filter((carte: Carte) => carte.id.startsWith('1.')) // typage explicite
-      .map((carte: Carte) => ({ ...carte })); // copie conforme
+    this.cartes = this.carteService.cartes().filter(carte => carte.categorie === 'patrimoine');
   }
 
-  ajouterCarte() {
-    const idNumber = parseFloat(this.nouvelleCarte.id.split('.')[1]);
+  async ajouterCarte() {
+    if (!this.nouvelleCarte.nom || !this.nouvelleCarte.description || !this.nouvelleCarte.adresse) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
 
-    if (this.nouvelleCarte.id.startsWith('1.')) {
-      this.carteService.addCarte({ ...this.nouvelleCarte }); // copie pour éviter mutation
-      this.loadCartes(); // mise à jour de la liste affichée
+    const carteSansId = { ...this.nouvelleCarte };
+    delete carteSansId.id;
+
+    try {
+      await this.carteService.ajouterCarte(carteSansId);
+      this.loadCartes();
+
       this.nouvelleCarte = {
-        imageUrl: '',
-        titre: '',
-        id: '',
+        id: undefined,
+        nom: '',
         description: '',
-        adresse: ''
+        adresse: '',
+        imageurl: '',
+        prix: undefined,
+        categorie: 'patrimoine'
       };
-    } else {
-      alert("L'ID doit être 1.x");
+    } catch (error) {
+      alert("Erreur lors de l'ajout de la carte.");
     }
   }
-
-  
 }

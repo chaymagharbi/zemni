@@ -17,17 +17,17 @@ export class NavbarComponent {
 
   @Output() adminModeChanged = new EventEmitter<boolean>();
   @Output() searchEvent = new EventEmitter<string>();
-
   toggleAdminMode() {
     this.adminMode = !this.adminMode;
     console.log(" Click sur icône admin. Mode =", this.adminMode);
     this.adminModeChanged.emit(this.adminMode);
   }
 
-  onSearchChange() {
-    if (this.searchTerm.trim()) {
-      this.router.navigate(['/recherche'], {
-        queryParams: { q: this.searchTerm.trim() }
-      });
-    }}
+  onTyping() {
+    this.searchEvent.emit(this.searchTerm);
+    if (this.router.url !== '/recherche') {
+      this.router.navigate(['/recherche']);
+    }
+  }
+  
 }

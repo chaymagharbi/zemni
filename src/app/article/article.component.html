@@ -1,0 +1,29 @@
+<app-navbar
+  (adminModeChanged)="toggleAdminMode()">
+</app-navbar><app-imgpr [imageSrc]="'assets/zemni3.png'"></app-imgpr>
+<div class="book-page">
+  <div class="article-row" *ngFor="let article of articles()">
+    <div class="article-column">
+      <h2>{{ article.titre }}</h2>
+      <p><strong>Date de publication :</strong> {{ article.datepub }}</p>
+      <p>{{ article.description }}</p>
+      <img [src]="article.imageurl" alt="{{ article.titre }}" />
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="adminMode"
+  class="admin-actions-global">
+  
+  <button (click)="ajouter()" title="Ajouter">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <button (click)="modifier()" title="Modifier">
+    <i class="fas fa-edit"></i>
+  </button>
+
+  <button (click)="supprimer()" title="Supprimer">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+</div>

@@ -1,10 +1,9 @@
-
 export interface Carte {
-    id: string;
-    titre: string;
-    description: string;
-    adresse: string;
-    imageUrl: string;
-    intervallePrix?: string; 
-  }
-  
+  id?: number;
+  nom: string;
+  description: string;
+  adresse: string;
+  imageurl: string;
+  categorie: 'gastronomie' | 'vetements' | 'restauration' | 'patrimoine';
+  prix?: number;
+}

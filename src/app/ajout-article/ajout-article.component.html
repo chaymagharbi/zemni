@@ -1,0 +1,66 @@
+<div class="ajout-endroit-container">
+    <div class="form-box">
+      <button class="close-btn" (click)="onCancel()">&times;</button>
+      <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
+  
+      <!-- Message d'erreur -->
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  
+      <h2>Ajouter un Article</h2>
+      <p class="subtext">Veuillez introduire des données valides!</p>
+  
+      <!-- Formulaire d'ajout -->
+      <form (ngSubmit)="ajouterArticle()">
+        <label for="titre">Titre d'Article</label>
+        <input
+          id="titre"
+          type="text"
+          [(ngModel)]="article.titre"
+          name="titre"
+          required
+        />
+        <label for="adresse">Date Publiaction</label>
+        <input
+          id="date"
+          type="date"
+          [(ngModel)]="article.datepub"
+          name="date"
+          placeholder="DD/MM/YYYY"
+          required
+        />
+  
+        <label for="description">Description</label>
+        <textarea
+  id="description"
+  [(ngModel)]="article.description"
+  name="description"
+  required
+  rows="4"
+  placeholder="Entrez une description détaillée ici...">
+</textarea>
+  
+        
+        <label for="imageUrl">URL de l'image</label>
+        <input
+          id="imageUrl"
+          type="text"
+          [(ngModel)]="article.imageurl"
+          name="imageUrl"
+          placeholder="http://www.domain.com/image.jpg"
+          required
+        />
+  
+        <div class="button-group">
+          <button type="button" class="cancel-btn" (click)="onCancel()">
+            <i class="fas fa-times-circle"></i> Annuler
+          </button>
+          <button type="submit" class="add-btn">
+            <i class="fas fa-plus-circle"></i> Ajouter
+          </button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  

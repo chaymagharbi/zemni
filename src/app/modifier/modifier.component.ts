@@ -13,102 +13,116 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./modifier.component.scss']
 })
 export class ModifierComponent {
-  carteId: string = '';
-  carte: Carte | null = null;
-  errorMessage: string = '';
-  originalId: string = '';
-  isModified = false;
-  categorie: string = '';
-  constructor(private router: Router, private carteService: CarteService,private route: ActivatedRoute ) {
-    this.route.queryParams.subscribe(params => {
-      this.categorie = params['categorie'] || '';
-  });
-}
+  categories = [
+    { value: 'vetements', label: 'Vêtements' },
+    { value: 'gastronomie', label: 'Gastronomie' },
+    { value: 'restauration', label: 'Restauration' },
+    { value: 'patrimoine', label: 'Patrimoine' }
+  ];
 
-onSearch() {
-  this.isModified = false;
+  selectedCategorie: string = '';
+  originalNom: string = ''; // Pour garder trace du nom original en cas de modification
+  carte: Carte = {
+    nom: '',
+    description: '',
+    adresse: '',
+    prix: 0,
+    imageurl: '',
+    categorie: 'gastronomie'
+  };
 
-  if (!this.carteId.trim()) {
-    this.errorMessage = "Veuillez entrer un ID.";
-    this.carte = null;
-    return;
-  }
+  message: { text: string, isError: boolean } = { text: '', isError: false };
+  isLoading: boolean = false;
+  isExistingItem: boolean = false;
 
-  const foundCarte = this.carteService.getCarteById(this.carteId.trim());
+  constructor(private carteService: CarteService) {}
 
-  if (!foundCarte) {
-    this.errorMessage = "Aucune carte trouvée avec cet ID.";
-    this.carte = null;
-  } else {
-    this.carte = JSON.parse(JSON.stringify(foundCarte));
+  async onNomBlur() {
+    if (!this.carte.nom || !this.selectedCategorie) return;
     
-    // 🧠 Déduire la catégorie à partir de l'ID :
-    const prefix = this.carte!.id.split('.')[0];
-    switch (prefix) {
-      case '1':
-        this.categorie = 'patrimoine';
-        break;
-      case '2':
-        this.categorie = 'restauration';
-        break;
-      case '3':
-        this.categorie = 'gastronomie';
-        break;
-      case '4':
-        this.categorie = 'vetement';
-        break;
-      default:
-        this.categorie = '';
+    this.isLoading = true;
+    try {
+      const existingCarte = await this.carteService.getCarteParNom(this.selectedCategorie, this.carte.nom);
+      this.originalNom = existingCarte.nom;
+      this.carte = {
+        ...existingCarte,
+        categorie: this.selectedCategorie as Carte['categorie']
+      };
+      this.isExistingItem = true;
+      this.message = { text: '', isError: false };
+    } catch (error) {
+      this.isExistingItem = false;
+      if (error instanceof Error && error.message.includes('non trouvé')) {
+        // Réinitialiser les champs sauf le nom et la catégorie
+        this.carte = {
+          nom: this.carte.nom,
+          description: '',
+          adresse: '',
+          prix: 0,
+          imageurl: '',
+          categorie: this.selectedCategorie as Carte['categorie']
+        };
+        this.message = { 
+          text: 'Nouvel élément - remplissez les champs et enregistrez', 
+          isError: false 
+        };
+      } else {
+        this.message = {
+          text: 'Erreur lors de la vérification: ' + (error instanceof Error ? error.message : 'Erreur inconnue'),
+          isError: true
+        };
+      }
+    } finally {
+      this.isLoading = false;
     }
-
-    this.errorMessage = '';
   }
-}
 
+  async modifierCarte() {
+    if (!this.carte || !this.selectedCategorie) return;
 
+    this.isLoading = true;
+    this.message = { text: '', isError: false };
 
-  onConfirmModifier() {
-    if (!this.carte) return;
+    try {
+      const { nom, description, adresse, prix, imageurl } = this.carte;
+      
+      // Si c'est un élément existant, on utilise le nom original pour la modification
+      const nomOriginal = this.isExistingItem ? this.originalNom : nom;
+      
+      const result = await this.carteService.modifierCarte(
+        this.selectedCategorie,
+        nomOriginal,
+        { nom, description, adresse, prix, imageurl }
+      );
 
-    // Vérifie si des modifications ont été faites
-    const originalCarte = this.carteService.getCarteById(this.carte.id);
-    if (JSON.stringify(originalCarte) === JSON.stringify(this.carte)) {
-      this.errorMessage = "Aucune modification détectée.";
-      return;
-    }
-
-    // Appel le service et vérifie le succès
-    if (this.carteService.updateCarte(this.carte)) {
-      this.isModified = true;
-      this.errorMessage = "Carte mise à jour avec succès !";
-      setTimeout(() => {
-        this.router.navigate(['/']); // ou /patrimoine3 si tu veux rediriger direct là-bas
-      }, 1500);
-    } else {
-      this.errorMessage = "Échec de la mise à jour de la carte.";
-    }
-  } 
-
-  onCancel() {
-    this.router.navigate(['/']);
-  }
-  getNomLabel(): string {
-    switch (this.categorie) {
-      case 'gastronomie':
-        return 'plat';
-      case 'vetement':
-        return 'vêtement';
-      case 'patrimoine':
-        return 'endroit';
-      case 'restauration':
-        return 'endroit';
-      default:
-        return ''; 
+      this.message = { text: result.message, isError: false };
+      this.isExistingItem = true;
+      this.originalNom = nom; // Mettre à jour le nom original après modification
+    } catch (error: any) {
+      this.message = {
+        text: error.message || 'Erreur lors de la modification',
+        isError: true
+      };
+    } finally {
+      this.isLoading = false;
     }
   }
   
-  shouldShowIntervallePrix(): boolean {
-    return this.categorie === 'gastronomie' || this.categorie === 'vetement';
+  fermer() {
+    this.carte = {
+      nom: '',
+      description: '',
+      adresse: '',
+      prix: 0,
+      imageurl: '',
+      categorie: this.selectedCategorie as Carte['categorie']
+    };
+    this.message = { text: '', isError: false };
+    this.isExistingItem = false;
+    this.originalNom = '';
   }
-  
+
+  get showPrixField(): boolean {
+    return ['gastronomie', 'vetements'].includes(this.selectedCategorie);
+  }
 }

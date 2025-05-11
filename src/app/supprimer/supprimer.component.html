@@ -1,47 +1,29 @@
 <div class="supprimer-endroit-container">
   <div class="form-box">
-    <button class="close-btn">&times;</button>
+    <button class="close-btn" (click)="fermer()">&times;</button>
     <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
 
-    <!-- Moteur de recherche pour trouver la carte -->
-    <form (ngSubmit)="onSearch()">
-      <label for="carteId">ID de la carte à supprimer</label>
-      <input
-        type="text"
-        id="carteId"
-        [(ngModel)]="carteId"
-        name="carteId"
-        required
-      />
-      <button type="submit" class="search-btn">Rechercher</button>
+    <h2>Supprimer une carte</h2>
+    
+    <form (ngSubmit)="supprimerCarte()">
+      <div class="form-group">
+        <label for="categorie">Catégorie :</label>
+        <select id="categorie" [(ngModel)]="categorie" name="categorie" required>
+          <option value="gastronomie">Gastronomie</option>
+          <option value="vetements">Vêtements</option>
+          <option value="restauration">Restauration</option>
+          <option value="patrimoine">Patrimoine</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="nom">Nom de la carte :</label>
+        <input type="text" id="nom" [(ngModel)]="nom" name="nom" required />
+      </div>
+
+      <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
 
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-
-    <div *ngIf="carte">
-      <h2>Supprimer</h2>
-      <form (ngSubmit)="onConfirmDelete()">
-        <label for="id">ID</label>
-        <input
-          type="text"
-          id="id"
-          [value]="carte.id"
-          placeholder="veuillez entrer un id unique"
-          disabled
-        />
-
-        <label for="titre">Nom </label>
-        <input type="text" id="titre" [value]="carte.titre" disabled />
-
-        <div class="button-group">
-          <button type="submit" class="add-btn">
-            <i class="fas fa-trash"></i> Supprimer
-          </button>
-          <button type="button" class="cancel-btn" (click)="onCancel()">
-            <i class="fas fa-times-circle"></i> Annuler
-          </button>
-        </div>
-      </form>
-    </div>
+    <p *ngIf="message">{{ message }}</p>
   </div>
 </div>

@@ -9,13 +9,13 @@
 </app-imgpr>
 <div class="carte-container">
 <div *ngFor="let carte of cartes" class="carte">
-<img [src]="carte.imageUrl" [alt]="carte.titre" />
+<img [src]="carte.imageurl" [alt]="carte.nom" />
 <div class="carte-content">
-  <h3>{{ carte.titre }}</h3>
+  <h3>{{ carte.nom }}</h3>
   <p>{{ carte.description }}</p>
   <p>
     <strong>Prix :</strong>
-    <span>{{ carte.intervallePrix }}</span>
+    <span>{{ carte.prix }}</span>
   </p>
   <p>
     <strong>Adresse:</strong>

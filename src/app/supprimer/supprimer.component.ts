@@ -4,6 +4,7 @@ import { Carte } from '../models/carte.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarteService } from '../services/carte.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-supprimer',
   standalone: true,
@@ -11,40 +12,30 @@ import { CarteService } from '../services/carte.service';
   templateUrl: './supprimer.component.html',
   styleUrls: ['./supprimer.component.scss']
 })
-export class SupprimerComponent implements OnInit {
-  carteId: string = '';
-  carte: Carte | null = null;
-  errorMessage: string = '';
+export class SupprimerComponent {
+  categorie: 'gastronomie' | 'vetements' | 'restauration' | 'patrimoine' = 'gastronomie';
+  nom = '';
+  message = '';
 
-  constructor(private router: Router, private carteService: CarteService) {}
+  constructor(private carteService: CarteService) {}
 
-  ngOnInit(): void {}
-
-  onSearch() {
-    if (!this.carteId.trim()) {
-      this.errorMessage = 'L\'ID est obligatoire.';
-      this.carte = null;
+  async supprimerCarte() {
+    if (!this.nom || !this.categorie) {
+      this.message = "❗Veuillez renseigner le nom et la catégorie.";
       return;
     }
 
-    this.carte = this.carteService.getCarteById(this.carteId.trim());
-
-    if (!this.carte) {
-      this.errorMessage = 'Carte non trouvée.';
-    } else {
-      this.errorMessage = '';
+    try {
+      await this.carteService.supprimerCarteParNom(this.categorie, this.nom);
+      this.message = "✅ Carte supprimée avec succès.";
+      this.nom = ''; // Réinitialiser le champ
+    } catch {
+      this.message = "❌ Erreur lors de la suppression.";
     }
   }
 
-  onConfirmDelete() {
-    if (this.carte) {
-      this.carteService.deleteCarte(this.carte.id);
-      console.log('Carte supprimée :', this.carte);
-      this.router.navigate(['/']); 
-    }
+  fermer() {
+    console.log("Fermeture (à implémenter si besoin)");
   }
 
-  onCancel() {
-    this.router.navigate(['/']);
-  }
 }

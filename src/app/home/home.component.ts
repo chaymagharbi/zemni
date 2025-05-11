@@ -55,7 +55,6 @@ export class HomeComponent {
 
   constructor(private router: Router, private carteService: CarteService) {
     // Récupération des cartes au démarrage
-    this.toutesCartes = this.carteService.getAllCartes();
 
     // Détection de la page actuelle
     this.router.events

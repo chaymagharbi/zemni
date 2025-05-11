@@ -1,0 +1,85 @@
+<div class="modifier-article-container">
+  <div class="form-box">
+    <button class="close-btn" (click)="resetForm()">&times;</button>
+    <img src="assets/logopr.jpg" alt="Logo" class="logo" />
+
+    <!-- Messages d'état -->
+    <div *ngIf="errorMessage" class="alert error">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="alert success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Indicateur de chargement -->
+    <div *ngIf="isLoading" class="loading">
+      <span>Chargement...</span>
+    </div>
+
+    <h2>Modifier un Article</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Champ Titre -->
+      <div class="form-group">
+        <label for="titre">Titre*</label>
+        <input
+          type="text"
+          id="titre"
+          [(ngModel)]="article.titre"
+          name="titre"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Champ Date -->
+      <div class="form-group">
+        <label for="datepub">Date de Publication*</label>
+        <input
+          type="date"
+          id="datepub"
+          [(ngModel)]="article.datepub"
+          name="datepub"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Champ Description -->
+      <div class="form-group">
+        <label for="description">Description*</label>
+        <textarea
+          id="description"
+          [(ngModel)]="article.description"
+          name="description"
+          rows="4"
+          required
+          [disabled]="isLoading"
+        ></textarea>
+      </div>
+
+      <!-- Champ Image URL -->
+      <div class="form-group">
+        <label for="imageurl">URL de l'image*</label>
+        <input
+          type="url"
+          id="imageurl"
+          [(ngModel)]="article.imageurl"
+          name="imageurl"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" (click)="resetForm()" [disabled]="isLoading">
+          Annuler
+        </button>
+        <button type="submit" [disabled]="isLoading || !article.titre">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

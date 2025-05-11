@@ -1,57 +1,62 @@
 <div class="modifier-endroit-container">
   <div class="form-box">
-    <button class="close-btn">&times;</button>
-    <img src="assets/logopr.jpg" alt="Zemni Logo" class="logo" />
+    <button class="close-btn" (click)="fermer()">&times;</button>
+    <img src="assets/logopr.jpg" alt="Logo" class="logo" />
 
-    <!-- Recherche de la carte -->
-    <form (ngSubmit)="onSearch()">
-      <label for="carteId">ID de la carte à modifier</label>
-      <input
-        type="text"
-        id="carteId"
-        [(ngModel)]="carteId"
-        name="carteId"
-        required
-      />
-      <button type="submit" class="search-btn">Rechercher</button>
-    </form>
+    <h2>Modifier une carte</h2>
 
-    <!-- Message d'erreur -->
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-
-    <!-- Formulaire de modification si la carte est trouvée -->
-    <div *ngIf="carte">
-      <h2>Modifier un {{ getNomLabel() }}</h2>
-    
-      <form (ngSubmit)="onConfirmModifier()">
-        <label for="id">ID du {{ getNomLabel() }}</label>
-        <input type="text" id="id" [value]="carte.id" disabled />
-    
-        <label for="titre">Nom du {{ getNomLabel() }}</label>
-        <input type="text" id="titre" [(ngModel)]="carte.titre" name="titre" required />
-    
-        <label for="description">Description</label>
-        <input type="text" id="description" [(ngModel)]="carte.description" name="description" required />
-    
-        <label for="adresse">Adresse</label>
-        <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" required />
-    
-        <label for="imageUrl">URL de l'image</label>
-        <input type="text" id="imageUrl" [(ngModel)]="carte.imageUrl" name="imageUrl" required />
-    
-        <div *ngIf="shouldShowIntervallePrix()">
-          <label for="intervallePrix">Prix</label>
-          <input type="text" id="intervallePrix" [(ngModel)]="carte.intervallePrix" name="intervallePrix" required />
-        </div>
-    
-        <div class="button-group">
-          <button type="button" class="cancel-btn" (click)="onCancel()">
-            <i class="fas fa-times-circle"></i> Annuler
-          </button>
-          <button type="submit" class="add-btn">
-            <i class="fas fa-edit"></i> Modifier
-          </button>
-        </div>
-      </form>
+    <!-- Sélection de la catégorie -->
+    <div class="form-group">
+      <label for="categorie">Catégorie</label>
+      <select id="categorie" [(ngModel)]="selectedCategorie" name="categorie" required>
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let cat of categories" [value]="cat.value">{{ cat.label }}</option>
+      </select>
     </div>
-    
+
+    <!-- Messages -->
+    <div *ngIf="message.text" [class]="message.isError ? 'error-message' : 'success-message'">
+      {{ message.text }}
+    </div>
+
+    <!-- Formulaire de modification -->
+    <form *ngIf="carte" (ngSubmit)="modifierCarte()">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" 
+               [(ngModel)]="carte.nom" 
+               name="nom" 
+               required
+               (blur)="onNomBlur()"
+               [disabled]="isLoading">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="carte.description" name="description" [disabled]="isLoading"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input type="text" id="adresse" [(ngModel)]="carte.adresse" name="adresse" [disabled]="isLoading">
+      </div>
+
+      <div class="form-group">
+        <label for="imageurl">URL de l'image</label>
+        <input type="text" id="imageurl" [(ngModel)]="carte.imageurl" name="imageurl" [disabled]="isLoading">
+      </div>
+
+      <div *ngIf="showPrixField" class="form-group">
+        <label for="prix">Prix</label>
+        <input type="number" id="prix" [(ngModel)]="carte.prix" name="prix" step="0.01" [disabled]="isLoading">
+      </div>
+
+      <div class="button-group">
+        <button type="button" (click)="fermer()" [disabled]="isLoading">Annuler</button>
+        <button type="submit" [disabled]="isLoading">
+          {{ isLoading ? 'Enregistrement...' : isExistingItem ? 'Mettre à jour' : 'Créer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

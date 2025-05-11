@@ -1,13 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, RouterModule } from '@angular/router';  // Importer RouterModule
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { appRoutes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { loggingInterceptor } from './interceptors/logging.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),  // Fournir les routes définies dans app.routes.ts
-    RouterModule,  // Ajout de RouterModule pour gérer le routage
-    provideClientHydration(withEventReplay())
+    provideRouter(appRoutes),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([loggingInterceptor]) // Intercepteur fonctionnel
+    )
   ]
 };

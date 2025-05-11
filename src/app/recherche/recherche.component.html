@@ -1,23 +1,27 @@
-<app-navbar (searchEvent)="filtrerCartes($event)"></app-navbar>
+<app-navbar (searchEvent)="rechercherCartes($event)"></app-navbar>
 
-<div class="liste-cartes" *ngIf="cartesFiltres.length > 0">
-  <app-carte
-    *ngFor="let carte of cartesFiltres"
-    [image]="carte.imageUrl"
-    [titre]="carte.titre"
-    [description]="carte.description"
-    [adresse]="carte.adresse">
-  </app-carte>
-</div>
+<div class="search-container">
+  <!-- Utilisation sécurisée avec l'opérateur de navigation sécurisée -->
+  <div class="liste-cartes" *ngIf="(resultats()?.length ?? 0) > 0">
+    <app-carte
+      *ngFor="let carte of resultats() || []"
+      [image]="carte.imageurl"
+      [nom]="carte.nom"
+      [description]="carte.description"
+      [adresse]="carte.adresse"
+      >
+    </app-carte>
+  </div>
 
-<div class="no-results" *ngIf="rechercheActive && cartesFiltres.length === 0">
-  <dotlottie-player
-    src="https://lottie.host/0d614021-1b8a-42e8-9721-4c1f33eb782b/lJERu7y127.lottie"
-    background="transparent"
-    speed="1"
-    style="width: 300px; height: 300px"
-    loop
-    autoplay>
-  </dotlottie-player>
-  <p>Aucune carte ne correspond à votre recherche.</p>
+  <div class="no-results" *ngIf="rechercheActive && (resultats()?.length ?? 0) === 0">
+    <dotlottie-player
+      src="https://lottie.host/0d614021-1b8a-42e8-9721-4c1f33eb782b/lJERu7y127.lottie"
+      background="transparent"
+      speed="1"
+      style="width: 300px; height: 300px"
+      loop
+      autoplay>
+    </dotlottie-player>
+    <p>Aucune carte ne correspond à votre recherche "{{ termeRecherche }}"</p>
+  </div>
 </div>

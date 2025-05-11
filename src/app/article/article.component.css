@@ -1,0 +1,141 @@
+.book-page {
+  padding: 20px;
+  background-color: #fdf4e3;
+  font-family: 'Georgia', serif;
+  color: #2e1d0e;
+  height: 80vh; /* Limite la hauteur globale */
+  overflow-y: auto;
+}
+.image-container {
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.article-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  height: 100%;
+}
+
+.article-column {
+  flex: 0 0 48%;
+  max-height: 100%;
+  overflow-y: auto; /* Scroll à l'intérieur si trop de texte */
+  font-size: 14px; /* Réduction de la taille de texte */
+  line-height: 1.4;
+  background-color: rgba(255, 248, 220, 0.9);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Réduit la taille de l’image à l’intérieur */
+.article-column img {
+  width: 50%; /* Réduit la largeur de l'image à 80% de la colonne */
+  height: 20; /* Laisse l'image conserver son ratio */
+  max-width: 100%; /* S'assure que l'image ne dépasse pas la largeur de la colonne */
+  object-fit: contain; /* Maintient le ratio de l'image sans déformation */
+  display: block;
+  margin: 10px auto;
+  border: none; /* Aucune bordure */
+  border-radius: 15px; /* Coins légèrement arrondis */
+  box-shadow: none; /* Pas d'ombre */
+  background: transparent; /* Pas de fond */
+}
+
+
+
+
+
+/* Titres plus petits */
+h2 {
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #5e3c1c;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .article-row {
+    flex-direction: column;
+  }
+
+  .article-column {
+    flex: 1 1 100%;
+    max-height: none;
+  }
+}
+.admin-actions-global {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.admin-actions-global button {
+  background-color: #f5f5f5;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  color: #333;
+  font-size: 18px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.admin-actions-global button:hover {
+  background-color: orange;
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.admin-actions-global button i {
+  pointer-events: none;
+}
+
+.admin-actions-global button + button {
+  margin-top: 10px;
+}
+
+/* Version alternative avec variables CSS */
+:root {
+  --admin-btn-size: 60px;
+  --admin-btn-bg: #f5f5f5;
+  --admin-btn-hover: orange;
+  --admin-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.admin-actions-global.alt button {
+  width: var(--admin-btn-size);
+  height: var(--admin-btn-size);
+  background-color: var(--admin-btn-bg);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-actions-global.alt button:hover {
+  background-color: var(--admin-btn-hover);
+}

@@ -13,7 +13,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class CarteComponent {
   @Input() image!: string;
-  @Input() titre!: string;
+  @Input() nom!: string;
   @Input() description!: string;
   @Input() adresse!: string;
 }

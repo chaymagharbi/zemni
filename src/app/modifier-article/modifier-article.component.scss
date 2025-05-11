@@ -1,0 +1,137 @@
+.modifier-article-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f2e3cb;
+    background-image: url('/assets/logopr.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/logopr.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: blur(6px); // 💡 tu peux augmenter pour plus de flou
+        z-index: 0;
+    }
+    .search-btn { 
+      flex: 1;
+      padding: 0.6rem;
+      font-size: 1rem;
+      color: rgb(9, 9, 9);
+      border: none;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      background-color: orange;
+  
+    }
+    .form-box {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+  
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+  
+      .logo {
+        display: block;
+        margin: 0 auto 20px;
+        width: 120px;
+        border-radius: 30px;
+      }
+  
+      h2 {
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+  
+      .subtext {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 1.5rem;
+      }
+  
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+  
+        label {
+          text-align: left;
+          font-weight: bold;
+          font-size: 0.9rem;
+        }
+  
+        input {
+          padding: 0.6rem;
+          font-size: 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+        }
+  
+        .button-group {
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+  
+          button {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+  
+            &.add-btn {
+              background-color: #222;
+              margin-left: 0;
+              margin-right: 0.5rem;
+            }
+  
+            &.cancel-btn {
+              background-color: #888;
+            }
+  
+            i {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+      .error {
+        color: red;
+        margin-top: 1rem;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+  }
+  

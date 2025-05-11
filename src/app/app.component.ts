@@ -22,17 +22,29 @@ export class AppComponent {
 
   constructor(private carteService: CarteService) {}
 
-  filtrerCartesGlobale(terme: string) {
-    const toutesLesCartes = this.carteService.getAllCartes();
+  async filtrerCartesGlobale(terme: string) {
     this.isRecherchePage = terme.trim().length > 0;
-
-    this.cartesFiltrees = toutesLesCartes
-      .filter(carte =>
-        carte.titre.toLowerCase().includes(terme.toLowerCase()) ||
+  
+    if (!terme.trim()) {
+      this.cartesFiltrees = [];
+      return;
+    }
+  
+    try {
+      // Charge les cartes si pas déjà fait
+      if (this.carteService.cartes().length === 0) {
+        await this.carteService.chargerCartesDepuisBackend();
+      }
+  
+      this.cartesFiltrees = this.carteService.cartes().filter(carte =>
+        carte.nom.toLowerCase().includes(terme.toLowerCase()) ||
         carte.description.toLowerCase().includes(terme.toLowerCase()) ||
         carte.adresse.toLowerCase().includes(terme.toLowerCase())
-      )
-      .map(carte => ({ ...carte }));
+      );
+    } catch (err) {
+      console.error("Erreur pendant le filtrage :", err);
+      this.cartesFiltrees = [];
+    }
   }
 }
   
